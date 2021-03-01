@@ -247,60 +247,6 @@ function as_get_scheduled_actions( $args = array(), $return_format = OBJECT ) {
 }
 
 /**
- * Cancel the next occurrence of a scheduled action by tiemstamp.
- *
- * While only the next instance of a recurring or cron action is unscheduled by this method, that will also prevent
- * all future instances of that recurring or cron action from being run. Recurring and cron actions are scheduled in
- * a sequence instead of all being scheduled at once. Each successive occurrence of a recurring action is scheduled
- * only after the former action is run. If the next instance is never run, because it's unscheduled by this function,
- * then the following instance will never be scheduled (or exist), which is effectively the same as being unscheduled
- * by this method also.
- *
- * @param string $hook The hook that the job will trigger.
- * @param array $args Args that would have been passed to the job.
- * @param string $group The group the job is assigned to.
- *
- * @return string|null The scheduled action ID if a scheduled action was found, or null if no matching action found.
- */
-function as_cancel_action( $job_id ) {
-	if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
-		return false;
-	}
-
-	if ( ! empty( $job_id ) ) {
-		ActionScheduler::store()->cancel_action( $job_id );
-	}
-
-	return $job_id;
-}
-
-/**
- * Check if there is an existing action in the queue with a given hook, args and group combination.
- *
- * An action in the queue could be pending, in-progress or async. If the is pending for a time in
- * future, its scheduled date will be returned as a timestamp. If it is currently being run, or an
- * async action sitting in the queue waiting to be processed, in which case boolean true will be
- * returned. Or there may be no async, in-progress or pending action for this hook, in which case,
- * boolean false will be the return value.
- *
- * @param string $hook
- * @param array $args
- * @param string $group
- *
- * @return int|bool The timestamp for the next occurrence of a pending scheduled action, true for an async or in-progress action or false if there is no matching action.
- */
-function as_fetch_action( $job_id ) {
-	if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
-		return false;
-	}
-
-	$job = ActionScheduler::store()->fetch_action( $job_id );
-
-	return $job;
-}
-
-
-/**
  * Helper function to create an instance of DateTime based on a given
  * string and timezone. By default, will return the current date/time
  * in the UTC timezone.
