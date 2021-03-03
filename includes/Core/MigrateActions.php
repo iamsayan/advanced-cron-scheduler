@@ -37,6 +37,11 @@ class MigrateActions
 	 */
 	public function migrate_old_crons()
 	{
+        global $wp_version;
+        if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
+            return;
+        }
+
 		$crons = _get_cron_array();
 	    foreach ( $crons as $timestamp => $data ) {
 	    	foreach ( $data as $hook => $schedule ) {
@@ -59,15 +64,12 @@ class MigrateActions
 	}
 
     /**
-	 * Generate log infos.
-	 *
-	 * @param int    $post_id   Post ID to add in log.
-	 * @param string $action    Log Action.
-	 * @param bool   $status    Status success or failed.
-	 * @param string $reason    Action reason.
-	 * @param int    $timestamp Action timestmap.
-	 * @param string $icon      Log Icon.
-	 */
+     * Insert hooks into db for future reference.
+     *
+     * @param int       $timestamp Timestamp for when to run the event.
+     * @param string    $hook      Action hook, the execution of which will be unscheduled.
+     * @param array     $args      Arguments to pass to the hook's callback function.
+     */
     public function insert_hook( $timestamp, $hook, $args )
 	{
 		$data = unserialize( get_option( 'mwpcac_single_action_hooks' ) );
@@ -85,7 +87,10 @@ class MigrateActions
 	 */
     public function regenerate_crons()
 	{
-        global $wpdb;
+        global $wpdb, $wp_version;
+        if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
+            return;
+        }
 
 		$data = unserialize( get_option( 'mwpcac_single_action_hooks' ) );
 		if ( empty( $data ) ) return;
@@ -98,7 +103,7 @@ class MigrateActions
         
         foreach ( $values as $value ) {
             if ( in_array( $value['hook'], $data ) ) {
-                $this->generate_new_single_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], explode( '","', str_replace( [ '["', '"]' ], '', $value['args'] ) ) );
+                $this->generate_new_single_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
             }
         }
 

@@ -109,6 +109,10 @@ class Connection
 
             return $this->set_single_action( $event->timestamp, $event->hook, $event->args );
         } else {
+            if ( $this->get_next_action( $event->hook, $event->args ) ) {
+                return false;
+            }
+
             /** This filter is documented in wordpress/wp-includes/cron.php */
     	    $event = apply_filters( 'schedule_event', $event );
     
@@ -186,7 +190,7 @@ class Connection
             return null;
         }
     
-    	$this->unschedule_all_actions( $hook, array() );
+    	$this->unschedule_all_actions( $hook, [] );
     
     	return true;
     }
@@ -273,7 +277,7 @@ class Connection
         $event = (object) array(
             'hook'      => $hook,
             'timestamp' => $timestamp,
-            'schedule'  => '__fake_schedule',
+            'schedule'  => false,
             'args'      => $args
         );
 
@@ -281,9 +285,11 @@ class Connection
 
 		if ( ! empty( $job ) ) {
 			$recurrence = $this->get_recurrence( $job[0] );
-			if ( is_int( $recurrence ) ) {
+			if ( $recurrence && is_int( $recurrence ) ) {
 				$event->schedule = $this->get_schedule_by_interval( $recurrence );
-				$event->interval = (int) $recurrence;
+				if ( $event->schedule !== false ) {
+                    $event->interval = (int) $recurrence;
+                }
 			}
 		}
         

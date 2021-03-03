@@ -13,6 +13,7 @@ return array(
     'Mwpcac\\Base\\BaseController' => $baseDir . '/includes/Base/BaseController.php',
     'Mwpcac\\Base\\Deactivate' => $baseDir . '/includes/Base/Deactivate.php',
     'Mwpcac\\Base\\DonateNotice' => $baseDir . '/includes/Base/DonateNotice.php',
+    'Mwpcac\\Base\\Localization' => $baseDir . '/includes/Base/Localization.php',
     'Mwpcac\\Base\\RatingNotice' => $baseDir . '/includes/Base/RatingNotice.php',
     'Mwpcac\\Core\\Connection' => $baseDir . '/includes/Core/Connection.php',
     'Mwpcac\\Core\\MigrateActions' => $baseDir . '/includes/Core/MigrateActions.php',

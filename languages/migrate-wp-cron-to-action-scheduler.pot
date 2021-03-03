@@ -1,0 +1,123 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Migrate WP Cron to Action Scheduler\n"
+"POT-Creation-Date: 2021-03-03 08:06+0530\n"
+"PO-Revision-Date: 2021-03-03 08:06+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: migrate-wp-cron-to-action-scheduler.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/Base/Actions.php:40
+msgid "Action Scheduler"
+msgstr ""
+
+#: includes/Base/Actions.php:51
+msgid "Usage"
+msgstr ""
+
+#: includes/Base/Actions.php:52
+msgid "FAQ"
+msgstr ""
+
+#: includes/Base/AdminNotice.php:43
+#, php-format
+msgid ""
+"Your version of WordPress is below the minimum version of WordPress required "
+"by %s plugin. Please upgrade WordPress to 5.1.0 or later."
+msgstr ""
+
+#: includes/Base/AdminNotice.php:50
+#, php-format
+msgid ""
+"Your version of PHP is below the minimum version of PHP required by %s "
+"plugin. Please contact your host and request that your version be upgraded "
+"to 5.6 or later."
+msgstr ""
+
+#: includes/Base/AdminNotice.php:57
+#, php-format
+msgid ""
+"Thanks for installing %1$s v%2$s plugin. Click <a href=\"%3$s\">here</a> to "
+"view Action Scheduler tasks."
+msgstr ""
+
+#: includes/Base/DonateNotice.php:50
+msgid ""
+"Hey, I noticed you've been using Migrate WP Cron to Action Scheduler for "
+"more than 2 week – that’s awesome! If you like Migrate WP Cron to Action "
+"Scheduler and you are satisfied with the plugin, isn’t that worth a coffee "
+"or two? Please consider donating. Donations help me to continue support and "
+"development of this free plugin! Thank you very much!"
+msgstr ""
+
+#: includes/Base/DonateNotice.php:51
+msgid "Donate Now"
+msgstr ""
+
+#: includes/Base/DonateNotice.php:52
+msgid "I already donated"
+msgstr ""
+
+#: includes/Base/DonateNotice.php:53 includes/Base/RatingNotice.php:54
+msgid "Nope&#44; maybe later"
+msgstr ""
+
+#: includes/Base/DonateNotice.php:54
+msgid "I don't want to donate"
+msgstr ""
+
+#: includes/Base/RatingNotice.php:51
+msgid ""
+"Hey, I noticed you've been using Migrate WP Cron to Action Scheduler for "
+"more than 1 week – that’s awesome! Could you please do me a BIG favor and "
+"give it a <strong>5-star</strong> rating on WordPress? Just to help us "
+"spread the word and boost my motivation."
+msgstr ""
+
+#: includes/Base/RatingNotice.php:52
+msgid "Ok, you deserve it"
+msgstr ""
+
+#: includes/Base/RatingNotice.php:53
+msgid "I already did"
+msgstr ""
+
+#: includes/Base/RatingNotice.php:55
+msgid "I don't want to rate"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Migrate WP Cron to Action Scheduler"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The Migrate WP Cron to Action Scheduler plugin helps to easily migrate "
+"Native WordPress Cron to the Action Scheduler Library."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Sayan Datta"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.sayandatta.in"
+msgstr ""

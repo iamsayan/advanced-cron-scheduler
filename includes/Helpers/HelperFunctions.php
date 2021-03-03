@@ -47,7 +47,7 @@ trait HelperFunctions
     {
 		$job_id = \as_schedule_single_action( $timestamp, $hook, $args, $group );
 
-		$this->do_action( 'single_action_set', $timestamp, $hook, $args );
+		$this->do_action( 'single_action_set', $timestamp, $hook, $args, false );
 
 		return $job_id;
 	}
@@ -142,7 +142,7 @@ trait HelperFunctions
     protected function get_schedule_by_interval( $interval = null )
 	{
     	if ( empty( $interval ) ) {
-    		return '__fake_schedule';
+    		return false;
     	}
     
     	$schedules = $this->get_schedules_by_interval();
@@ -151,7 +151,7 @@ trait HelperFunctions
     		return $schedules[ (int) $interval ];
     	}
     
-    	return '__fake_schedule';
+    	return false;
     }
 
 	/**

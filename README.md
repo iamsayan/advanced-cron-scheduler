@@ -1,6 +1,21 @@
 # Migrate WP Cron to Action Scheduler
 
-The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library.
+The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library. 
+
+The WP-Cron system in WordPress is not a "real" cron system, which means events may not run exactly according to their schedule because the system relies on regular traffic to the website in order to trigger scheduled events.
+
+## Reasons WP-Cron events can miss their schedule
+
+* Low traffic websites may not trigger the event runner often enough
+* A fatal error caused by a plugin or theme may break the event runner
+* A plugin or theme may intentionally or unintentionally break the event runner
+* BasicAuth, a firewall, or other access restrictions may block the event runner
+* A problem with your web hosting or web server may break the event runner
+* The `DISABLE_WP_CRON` configuration constant is set but no alternative cron runner has been put in place
+* Long-running events may temporarily block the event runner
+* High traffic websites may suffer from sequential processing issues that block the event runner
+
+The Migrate WP Cron to Action Scheduler plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
 
 Action Scheduler is a scalable, traceable job queue for background processing large sets of actions in WordPress. It's specially designed to be distributed in WordPress plugins.
 
@@ -30,8 +45,15 @@ There you will find:
 * [Administration Guide](https://actionscheduler.org/admin/): guide to managing scheduled actions via the administration screen
 * [Guide to Background Processing at Scale](https://actionscheduler.org/perf/): instructions for running Action Scheduler at scale via the default WP Cron queue runner
 
+## Support
+
+* Community support via the [support forums](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/) at WordPress.org.
+
+## Contribute
+
+* Active development of this plugin is handled [on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/).
+* Feel free to [fork the project on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/) and submit your contributions via pull request.
+
 ## Credits
 
-Action Scheduler is developed and maintained by [Automattic](http://automattic.com/) with significant early development completed by [Flightless](https://flightless.us/).
-
-Collaboration is cool. We'd love to work with you to improve Action Scheduler. [Pull Requests](https://github.com/woocommerce/action-scheduler/pulls) welcome.
+Action Scheduler is developed and maintained by [Automattic](http://automattic.com/).

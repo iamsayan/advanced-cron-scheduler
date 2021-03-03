@@ -32,6 +32,7 @@ class ComposerStaticInit89768520ea85c32bebf6f7d5c391bf98
         'Mwpcac\\Base\\BaseController' => __DIR__ . '/../..' . '/includes/Base/BaseController.php',
         'Mwpcac\\Base\\Deactivate' => __DIR__ . '/../..' . '/includes/Base/Deactivate.php',
         'Mwpcac\\Base\\DonateNotice' => __DIR__ . '/../..' . '/includes/Base/DonateNotice.php',
+        'Mwpcac\\Base\\Localization' => __DIR__ . '/../..' . '/includes/Base/Localization.php',
         'Mwpcac\\Base\\RatingNotice' => __DIR__ . '/../..' . '/includes/Base/RatingNotice.php',
         'Mwpcac\\Core\\Connection' => __DIR__ . '/../..' . '/includes/Core/Connection.php',
         'Mwpcac\\Core\\MigrateActions' => __DIR__ . '/../..' . '/includes/Core/MigrateActions.php',

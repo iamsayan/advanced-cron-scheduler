@@ -26,6 +26,7 @@ final class MwpcacLoader
 			Base\Actions::class,
 			Base\AdminNotice::class,
 			Base\DonateNotice::class,
+			Base\Localization::class,
 			Base\RatingNotice::class,
 			Core\Connection::class,
 			Core\MigrateActions::class,

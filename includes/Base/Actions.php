@@ -37,10 +37,9 @@ class Actions extends BaseController
 	 */
 	public function settings_link( $links ) 
 	{
-		$wparlinks = [
-			'<a href="' . admin_url( 'tools.php?page=action-scheduler' ) . '">' . __( 'Action Scheduler', 'migrate-wp-cron-to-action-scheduler' ) . '</a>',
-		];
-		return array_merge( $links, $wparlinks );
+		$links[] = '<a href="' . admin_url( 'tools.php?page=action-scheduler' ) . '">' . __( 'Action Scheduler', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+
+		return $links;
 	}
 
 	/**

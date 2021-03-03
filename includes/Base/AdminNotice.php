@@ -45,9 +45,9 @@ class AdminNotice extends BaseController
 		}
 		
 		// Show a warning to sites running PHP < 5.6
-		if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
+		if ( version_compare( PHP_VERSION, '5.6', '<' ) ) {
 			deactivate_plugins( $this->plugin );
-			echo '<div class="error"><p>' . sprintf( __( 'Your version of PHP is below the minimum version of PHP required by %s plugin. Please contact your host and request that your version be upgraded to 5.3 or later.', 'migrate-wp-cron-to-action-scheduler' ), $this->name ) . '</p></div>';
+			echo '<div class="error"><p>' . sprintf( __( 'Your version of PHP is below the minimum version of PHP required by %s plugin. Please contact your host and request that your version be upgraded to 5.6 or later.', 'migrate-wp-cron-to-action-scheduler' ), $this->name ) . '</p></div>';
 			return;
 		}
 
