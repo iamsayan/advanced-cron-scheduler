@@ -1,9 +1,9 @@
 === Migrate WP Cron to Action Scheduler ===
-Contributors: infosatech
-Tags: scheduler, cron
-Requires at least: 5.1
+Contributors: Infosatech
+Tags: scheduler, cron, wp cron, debug, cron manager
+Requires at least: 5.1.0
 Tested up to: 5.7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 5.6
 Donate link: https://www.paypal.me/iamsayan/
 License: GPLv3
@@ -12,6 +12,21 @@ License URI: http://www.gnu.org/licenses/gpl.html
 The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library.
 
 == Description ==
+
+The WP-Cron system in WordPress is not a "real" cron system, which means events may not run exactly according to their schedule because the system relies on regular traffic to the website in order to trigger scheduled events.
+
+## Reasons WP-Cron events can miss their schedule
+
+* Low traffic websites may not trigger the event runner often enough
+* A fatal error caused by a plugin or theme may break the event runner
+* A plugin or theme may intentionally or unintentionally break the event runner
+* BasicAuth, a firewall, or other access restrictions may block the event runner
+* A problem with your web hosting or web server may break the event runner
+* The `DISABLE_WP_CRON` configuration constant is set but no alternative cron runner has been put in place
+* Long-running events may temporarily block the event runner
+* High traffic websites may suffer from sequential processing issues that block the event runner
+
+The Migrate WP Cron to Action Scheduler plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
 
 Action Scheduler is a scalable, traceable job queue for background processing large sets of actions in WordPress. It's specially designed to be distributed in WordPress plugins.
 
@@ -72,9 +87,19 @@ To Avoid all limitations of WP Cron, this plugin automatically replaces all the 
 
 Yes, our plugins work independently of themes you are using. As long as your website is running on WordPress version 5.1 or later, it will work.
 
+== Screenshots ==
+
+1. Action Scheduler Tasks
+
 == Changelog ==
 
 If you like Migrate WP Cron to Action Scheduler, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+
+= 1.0.1 =
+Release Date: 4th March, 2021
+
+* Added: Ability to Auto delete the Store Schema on PLugin Activation and Deactivation to avoid Missing Database error on some installations.
+* Added: Ability to Purge Cache on plugin Deactivation.
 
 = 1.0.0 =
 Release Date: 2nd March, 2021

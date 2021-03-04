@@ -57,3 +57,6 @@ There you will find:
 ## Credits
 
 Action Scheduler is developed and maintained by [Automattic](http://automattic.com/).
+
+## Changelog ##
+[View Changelog](CHANGELOG.md)

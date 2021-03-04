@@ -3,7 +3,7 @@
  * Plugin Name: Migrate WP Cron to Action Scheduler
  * Plugin URI: https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/
  * Description: The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Sayan Datta
  * Author URI: https://www.sayandatta.in
  * License: GPLv3

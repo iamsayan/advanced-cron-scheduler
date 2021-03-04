@@ -27,6 +27,7 @@ class SiteCache
 	public function register()
 	{
 		$this->action( 'mwpcac/after_plugin_activate', 'purge_site_cache', 20 );
+		$this->action( 'mwpcac/after_plugin_deactivate', 'purge_site_cache', 20 );
 	}
 
 	/**

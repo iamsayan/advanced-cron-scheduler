@@ -42,6 +42,9 @@ class MigrateActions
             return;
         }
 
+        // remove action scheduler schema if already exists.
+        delete_option( 'schema-ActionScheduler_StoreSchema' );
+
 		$crons = _get_cron_array();
 	    foreach ( $crons as $timestamp => $data ) {
 	    	foreach ( $data as $hook => $schedule ) {
@@ -108,6 +111,7 @@ class MigrateActions
         }
 
         delete_option( 'mwpcac_single_action_hooks' );
+        delete_option( 'schema-ActionScheduler_StoreSchema' );
 	}
 
     /**
