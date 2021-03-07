@@ -1,6 +1,6 @@
 # Migrate WP Cron to Action Scheduler
 
-The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library. 
+The Migrate WP Cron to Action Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library. 
 
 The WP-Cron system in WordPress is not a "real" cron system, which means events may not run exactly according to their schedule because the system relies on regular traffic to the website in order to trigger scheduled events.
 

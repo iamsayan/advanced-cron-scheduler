@@ -28,7 +28,7 @@ class MigrateActions
 	public function register()
 	{
         $this->action( 'mwpcac/after_plugin_activate', 'migrate_old_crons', 5 );
-        $this->action( 'mwpcac/single_action_set', 'insert_hook', 10, 3 );
+        $this->action( 'mwpcac/single_action_set', 'insert_hook', 5, 4 );
         $this->action( 'mwpcac/after_plugin_deactivate', 'regenerate_crons', 99 );
 	}
 
@@ -73,14 +73,12 @@ class MigrateActions
      * @param string    $hook      Action hook, the execution of which will be unscheduled.
      * @param array     $args      Arguments to pass to the hook's callback function.
      */
-    public function insert_hook( $timestamp, $hook, $args )
+    public function insert_hook( $timestamp, $hook, $args, $job_id )
 	{
 		$data = unserialize( get_option( 'mwpcac_single_action_hooks' ) );
 		if ( empty( $data ) ) $data = [];
 
-        if ( ! in_array( $hook, $data ) ) {
-            $data[] = $hook;
-        }
+        $data[$job_id] = $hook;
 
 		update_option( 'mwpcac_single_action_hooks', maybe_serialize( $data ) );
 	}
@@ -105,8 +103,11 @@ class MigrateActions
         $values = $wpdb->get_results( $statement, ARRAY_A );
         
         foreach ( $values as $value ) {
-            if ( in_array( $value['hook'], $data ) ) {
-                $this->generate_new_single_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
+            foreach ( $data as $id => $hook ) {
+                if ( in_array( $value['hook'], $hook ) ) {
+                    $this->generate_new_single_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
+                    $this->cancel_scheduled_action( $id );
+                }
             }
         }
 

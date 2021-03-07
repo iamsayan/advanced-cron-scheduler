@@ -47,7 +47,7 @@ trait HelperFunctions
     {
 		$job_id = \as_schedule_single_action( $timestamp, $hook, $args, $group );
 
-		$this->do_action( 'single_action_set', $timestamp, $hook, $args, false );
+		$this->do_action( 'single_action_set', $timestamp, $hook, $args, $job_id );
 
 		return $job_id;
 	}
@@ -175,13 +175,9 @@ trait HelperFunctions
     	}
     
     	$job = \ActionScheduler::store()->fetch_action( $job_id );
-		$recurrence = $job->get_schedule()->get_recurrence();
+		$recurrence = $job->get_schedule();
 
-		if ( $recurrence !== null ) {
-			return $recurrence;
-		}
-    
-    	return false;
+    	return $recurrence;
     }
 
 	/**

@@ -3,13 +3,13 @@ Contributors: Infosatech
 Tags: scheduler, cron, wp cron, debug, cron manager
 Requires at least: 5.1.0
 Tested up to: 5.7
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 5.6
 Donate link: https://www.paypal.me/iamsayan/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library.
+The Migrate WP Cron to Action Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library.
 
 == Description ==
 
@@ -94,6 +94,11 @@ Yes, our plugins work independently of themes you are using. As long as your web
 == Changelog ==
 
 If you like Migrate WP Cron to Action Scheduler, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+
+= 1.0.2 =
+Release Date: 7th March, 2021
+
+* Added: Ability to Auto Delete pending tasks from Action Scheduler upon Deactivation.
 
 = 1.0.1 =
 Release Date: 4th March, 2021

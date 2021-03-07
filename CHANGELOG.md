@@ -1,7 +1,13 @@
 # Changelog
-All notable changes to this project will be documented in this file.
 
 If you like Migrate WP Cron to Action Scheduler plugin, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+
+All notable changes to this project will be documented in this file.
+
+## 1.0.2
+Release Date: 7th March, 2021
+
+* Added: Ability to Auto Delete pending tasks from Action Scheduler upon Deactivation.
 
 ## 1.0.1
 Release Date: 4th March, 2021

@@ -285,12 +285,12 @@ class Connection
 
 		if ( ! empty( $job ) ) {
 			$recurrence = $this->get_recurrence( $job[0] );
-			if ( $recurrence && is_int( $recurrence ) ) {
-				$event->schedule = $this->get_schedule_by_interval( $recurrence );
-				if ( $event->schedule !== false ) {
-                    $event->interval = (int) $recurrence;
+            if ( $recurrence->is_recurring() ) {
+                if ( method_exists( $recurrence, 'get_recurrence' ) ) {
+                    $event->schedule = $this->get_schedule_by_interval( $recurrence->get_recurrence() );
+				    $event->interval = (int) $recurrence->get_recurrence();
                 }
-			}
+            }
 		}
         
         return $event;
