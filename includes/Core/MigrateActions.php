@@ -83,8 +83,6 @@ class MigrateActions
         $data[ $job_id ] = $hook;
 
 		update_option( 'mwpcac_single_action_hooks', $data );
-
-        error_log(print_r(get_option( 'mwpcac_single_action_hooks' ), 1));
 	}
 
     /**
