@@ -5,7 +5,7 @@
  * @since      1.0.0
  * @package    Migrate WP Cron to Action Scheduler
  * @subpackage Mwpcac\Base
- * @author     Sayan Datta <hello@sayandatta.in>
+ * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
 namespace Mwpcac\Core;
@@ -92,7 +92,7 @@ class Connection
              * current time) all events scheduled within the next ten minutes
              * are considered duplicates.
              */
-            $next_timestamp = as_next_scheduled_action( $event->hook, $event->args );
+            $next_timestamp = $this->get_next_action( $event->hook, $event->args );
             $duplicate = false;
             if ( $next_timestamp !== false ) {
                 if ( ( $next_timestamp > $min_timestamp ) && ( $next_timestamp < $max_timestamp ) ) {
@@ -109,7 +109,7 @@ class Connection
 
             return $this->set_single_action( $event->timestamp, $event->hook, $event->args );
         } else {
-            if ( $this->get_next_action( $event->hook, $event->args ) ) {
+            if ( $this->has_next_action( $event->hook, $event->args ) ) {
                 return false;
             }
 
@@ -118,8 +118,6 @@ class Connection
     
             return $this->set_recurring_action( $event->timestamp, $event->interval, $event->hook, $event->args );
         }
-    
-        return true;
     }
     
     /**

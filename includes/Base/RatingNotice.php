@@ -5,7 +5,7 @@
  * @since      1.0.0
  * @package    Migrate WP Cron to Action Scheduler
  * @subpackage Mwpcac\Base
- * @author     Sayan Datta <hello@sayandatta.in>
+ * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
 namespace Mwpcac\Base;
@@ -48,11 +48,11 @@ class RatingNotice
         $no_thanks = wp_nonce_url( add_query_arg( 'mwpcac_rating_notice_action', 'no_thanks_rating_true' ), 'no_thanks_rating_true' ); ?>
         
         <div class="notice notice-success">
-            <p><?php _e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation.', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
-            <p><a href="https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/" target="_blank" class="button button-secondary"><?php _e( 'Ok, you deserve it', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
-            <a href="<?php echo $dismiss; ?>" class="already-did"><strong><?php _e( 'I already did', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
-            <a href="<?php echo $no_thanks; ?>" class="later"><strong><?php _e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
-            <a href="<?php echo $dismiss; ?>" class="hide"><strong><?php _e( 'I don\'t want to rate', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a></p>
+            <p><?php esc_html_e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation.', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
+            <p><a href="https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/" target="_blank" class="button button-secondary"><?php esc_html_e( 'Ok, you deserve it', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
+            <a href="<?php echo esc_url( $dismiss ); ?>" class="already-did"><strong><?php esc_html_e( 'I already did', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
+            <a href="<?php echo esc_url( $no_thanks ); ?>" class="later"><strong><?php esc_html_e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
+            <a href="<?php echo esc_url( $dismiss ); ?>" class="hide"><strong><?php esc_html_e( 'I don\'t want to rate', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a></p>
         </div>
 	<?php
 	}

@@ -5,7 +5,7 @@
  * @since      1.0.0
  * @package    Migrate WP Cron to Action Scheduler
  * @subpackage Mwpcac\Base
- * @author     Sayan Datta <hello@sayandatta.in>
+ * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
 namespace Mwpcac\Base;
@@ -47,11 +47,11 @@ class DonateNotice
 		$no_thanks = wp_nonce_url( add_query_arg( 'mwpcac_donate_notice_action', 'no_thanks_donate_true' ), 'mwpcac_no_thanks_donate_true' ); ?>
 		
 		<div class="notice notice-success">
-			<p><?php _e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 2 week – that’s awesome! If you like Migrate WP Cron to Action Scheduler and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
-			<p><a href="https://www.paypal.me/iamsayan" target="_blank" class="button button-secondary"><?php _e( 'Donate Now', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
-			<a href="<?php echo $dismiss; ?>" class="already-did"><strong><?php _e( 'I already donated', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
-			<a href="<?php echo $no_thanks; ?>" class="later"><strong><?php _e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
-			<a href="<?php echo $dismiss; ?>" class="hide"><strong><?php _e( 'I don\'t want to donate', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a></p>
+			<p><?php esc_html_e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 2 week – that’s awesome! If you like Migrate WP Cron to Action Scheduler and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
+			<p><a href="https://www.paypal.me/iamsayan" target="_blank" class="button button-secondary"><?php esc_html_e( 'Donate Now', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
+			<a href="<?php echo esc_url( $dismiss ); ?>" class="already-did"><strong><?php esc_html_e( 'I already donated', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
+			<a href="<?php echo esc_url( $no_thanks ); ?>" class="later"><strong><?php esc_html_e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
+			<a href="<?php echo esc_url( $dismiss ); ?>" class="hide"><strong><?php esc_html_e( 'I don\'t want to donate', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a></p>
 		</div>
 	<?php
 	}

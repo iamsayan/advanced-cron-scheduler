@@ -6,13 +6,13 @@
     "authors": [
         {
             "name": "Sayan Datta",
-            "email": "hello@sayandatta.in",
+            "email": "iamsayan@protonmail.com",
             "homepage": "http://www.sayandatta.in",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "hello@sayandatta.in"
+        "email": "iamsayan@protonmail.com"
     },
     "funding": [
         {
@@ -28,6 +28,6 @@
         "files": ["vendor/woocommerce/action-scheduler/action-scheduler.php"]
     },
     "require": {
-        "woocommerce/action-scheduler": "^3.1"
+        "woocommerce/action-scheduler": "^3.4"
     }
 }

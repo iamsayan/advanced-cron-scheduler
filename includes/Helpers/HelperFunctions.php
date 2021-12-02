@@ -5,7 +5,7 @@
  * @since      1.0.0
  * @package    Migrate WP Cron to Action Scheduler
  * @subpackage Mwpcac\Helpers
- * @author     Sayan Datta <hello@sayandatta.in>
+ * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
 namespace Mwpcac\Helpers;
@@ -77,7 +77,7 @@ trait HelperFunctions
 	}
 
 	/**
-	 * Check if next action is exists.
+	 * Returns next action timestamp.
 	 *
 	 * @param  string  $hook   Action Hook.
 	 * @param  array   $args   Parameters.
@@ -97,16 +97,30 @@ trait HelperFunctions
 	 * @param  string  $group  Group Name.
 	 * @return null|string
 	 */
+	protected function has_next_action( $hook, $args = [], $group = 'mwpcac' )
+    {
+		return \as_has_scheduled_action( $hook, $args, $group );
+	}
+
+	/**
+	 * Check if next action is exists.
+	 *
+	 * @param  string  $hook   Action Hook.
+	 * @param  array   $args   Parameters.
+	 * @param  string  $group  Group Name.
+	 * @return null|string
+	 */
 	protected function get_next_action_by_data( $hook, $args, $timestamp, $group = 'mwpcac' )
     {
 		return \as_get_scheduled_actions( [
-			'hook' => $hook,
-			'args' => $args,
-			'date' => $timestamp,
-			'date_compare' => '=',
-			'group' => $group,
-			'status' => 'pending',
-			'per_page' => 1
+			'hook' 			=> $hook,
+			'args' 			=> $args,
+			'date' 			=> strtotime( date( 'Y-m-d H:i:s', $timestamp ) ),
+			'date_compare' 	=> '=',
+			'group' 		=> $group,
+			'status' 		=> \ActionScheduler_Store::STATUS_PENDING,
+			'per_page' 		=> 1,
+			'orderby'  		=> 'none',
 		], 'ids' );
 	}
 
@@ -145,10 +159,11 @@ trait HelperFunctions
     		return false;
     	}
     
+		$interval = (int) $interval;
     	$schedules = $this->get_schedules_by_interval();
-    
-    	if ( ! empty ( $schedules[ (int) $interval ] ) ) {
-    		return $schedules[ (int) $interval ];
+
+    	if ( ! empty ( $schedules ) && isset( $schedules[ $interval ] ) ) {
+    		return $schedules[ $interval ];
     	}
     
     	return false;
@@ -204,7 +219,7 @@ trait HelperFunctions
      */
     protected function get_protected_hooks()
 	{
-    	$hooks = apply_filters( 'mwpcac_protected_hooks', array(
+    	$hooks = apply_filters( 'mwpcac_protected_hooks', [
             'wp_site_health_scheduled_check',
             'recovery_mode_clean_expired_keys',
             'wp_scheduled_auto_draft_delete',
@@ -214,10 +229,10 @@ trait HelperFunctions
             'wp_update_themes',
             'wp_scheduled_delete',
             'delete_expired_transients'
-        ) );
+        ] );
     
         array_push( $hooks, 'action_scheduler_run_queue' );
     
-        return array_merge( apply_filters( 'mwpcac_exclude_event_hooks', array() ), $hooks );
+        return array_merge( apply_filters( 'mwpcac_exclude_event_hooks', [] ), $hooks );
     }
 }

@@ -5,7 +5,7 @@
  * @since      1.1.0
  * @package    Migrate WP Cron to Action Scheduler
  * @subpackage Mwpcac\Base
- * @author     Sayan Datta <hello@sayandatta.in>
+ * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
 namespace Mwpcac\Base;
