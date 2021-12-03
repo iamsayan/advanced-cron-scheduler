@@ -28,10 +28,12 @@ class Connection
 	public function register()
 	{
 		$this->filter( 'pre_schedule_event', 'pre_schedule_event', 5, 2 );
+		$this->filter( 'pre_reschedule_event', 'pre_reschedule_event', 5, 2 );
 		$this->filter( 'pre_unschedule_event', 'pre_unschedule_event', 5, 4 );
 		$this->filter( 'pre_unschedule_hook', 'pre_unschedule_hook', 5, 2 );
 		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 5, 3 );
 		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 5, 4 );
+        $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs', 5, 4 );
 	}
 
 	/**
@@ -118,6 +120,65 @@ class Connection
     
             return $this->set_recurring_action( $event->timestamp, $event->interval, $event->hook, $event->args );
         }
+    }
+
+    /**
+     * Reschedules a recurring event.
+     *
+     * Note: The Cavalcade reschedule behaviour is intentionally different to WordPress's.
+     * To avoid drift of cron schedules, Cavalcade adds the interval to the next scheduled
+     * run time without checking if this time is in the past.
+     *
+     * To ensure the next run time is in the future, it is recommended you delete and reschedule
+     * a job.
+     *
+     * @param null|bool $pre   Value to return instead. Default null to continue adding the event.
+     * @param stdClass  $event {
+     *     An object containing an event's data.
+     *
+     *     @type string       $hook      Action hook to execute when the event is run.
+     *     @type int          $timestamp Unix timestamp (UTC) for when to next run the event.
+     *     @type string|false $schedule  How often the event should subsequently recur.
+     *     @type array        $args      Array containing each separate argument to pass to the hook's callback function.
+     *     @type int          $interval  The interval time in seconds for the schedule. Only present for recurring events.
+     * }
+     * @return bool True if event successfully rescheduled. False for failure.
+     */
+    function pre_reschedule_event( $pre, $event )
+    {
+        // Allow other filters to do their thing.
+        if ( $pre !== null ) {
+            return $pre;
+        }
+
+        /**
+         * Filter to exclude a hook from inclusion in Action Scheduler.
+         *
+         * @param array Array containing each separate argument to pass to the hook's callback function.
+         */
+        if ( in_array( $event->hook, $this->get_protected_hooks() ) ) {
+            return null;
+        }
+
+        $job = $this->get_next_action_by_data( $event->hook, $event->args, $event->timestamp );
+    
+        if ( empty( $job ) ) {
+            return false;
+        }
+
+        $this->cancel_scheduled_action( $job[0] );
+
+        $now = time();
+        $timestamp = $event->timestamp;
+        $interval = $event->interval;
+
+        if ( $timestamp >= $now ) {
+            $timestamp = $now + $interval;
+        } else {
+            $timestamp = $now + ( $interval - ( ( $now - $timestamp ) % $interval ) );
+        }
+     
+        return \wp_schedule_event( $timestamp, $event->schedule, $event->hook, $event->args );
     }
     
     /**
@@ -292,5 +353,93 @@ class Connection
 		}
         
         return $event;
+    }
+
+    /**
+     * Retrieve cron jobs ready to be run.
+     *
+     * Returns the results of _get_cron_array() limited to events ready to be run,
+     * ie, with a timestamp in the past.
+     *
+     * @param null|array $pre Array of ready cron tasks to return instead. Default null
+     *                        to continue using results from _get_cron_array().
+     * @return array Cron jobs ready to be run.
+     */
+    function pre_get_ready_cron_jobs( $pre )
+    {
+        // Allow other filters to do their thing.
+        if ( $pre !== null ) {
+            return $pre;
+        }
+
+        if ( ! \ActionScheduler::is_initialized( __FUNCTION__ ) ) {
+            return $pre;
+        }
+
+        $crons = [];
+        $proceed = true;
+        $wp_crons = _get_cron_array();
+        if ( $wp_crons ) {
+            $gmt_time = microtime( true );
+            $keys     = array_keys( $wp_crons );
+            if ( isset( $keys[0] ) && $keys[0] > $gmt_time ) {
+                $proceed = false;
+            }
+
+            if ( $proceed ) {
+                foreach ( $wp_crons as $timestamp => $cronhooks ) {
+                    if ( $timestamp > $gmt_time ) {
+                        break;
+                    }
+                    $crons[ $timestamp ] = $cronhooks;
+                }
+            }
+        }
+    
+        $results = \as_get_scheduled_actions( [
+			'date' 			=> gmdate( 'U' ),
+			'date_compare' 	=> '<=',
+			'group' 		=> 'mwpcac',
+			'status' 		=> \ActionScheduler_Store::STATUS_PENDING,
+			'per_page' 		=> 100,
+			'orderby'  		=> 'none',
+		], 'ids' );
+
+        foreach ( $results as $action_id ) {
+            $action = \ActionScheduler::store()->fetch_action( $action_id );
+
+            $hook = $action->get_hook();
+            $key = md5( serialize( $action->get_args() ) );
+            $value = [
+                'args'      => $action->get_args(),
+                '_job'      => $action,
+            ];
+
+            $timestamp = $action->get_schedule();
+            if ( method_exists( $timestamp, 'get_recurrence' ) ) {
+                $value['schedule'] = $this->get_schedule_by_interval( $timestamp->get_recurrence() );
+                $value['interval'] = (int) $timestamp->get_recurrence();
+            }
+
+            $next = $timestamp->get_date();
+            if ( $next ) {
+                $timestamp = $next->getTimestamp();
+            } else {
+                $timestamp = strtotime( '0000-00-00 00:00:00' );
+            }
+
+            // Build the array up.
+            if ( ! isset( $crons[ $timestamp ] ) ) {
+                $crons[ $timestamp ] = [];
+            }
+            if ( ! isset( $crons[ $timestamp ][ $hook ] ) ) {
+                $crons[ $timestamp ][ $hook ] = [];
+            }
+            $crons[ $timestamp ][ $hook ][ $key ] = $value;
+        }
+
+        ksort( $crons, SORT_NUMERIC );
+        
+        return $crons;
     }
 }

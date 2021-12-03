@@ -115,12 +115,13 @@ trait HelperFunctions
 		return \as_get_scheduled_actions( [
 			'hook' 			=> $hook,
 			'args' 			=> $args,
-			'date' 			=> strtotime( date( 'Y-m-d H:i:s', $timestamp ) ),
+			'date' 			=> gmdate( 'U', $timestamp ),
 			'date_compare' 	=> '=',
 			'group' 		=> $group,
 			'status' 		=> \ActionScheduler_Store::STATUS_PENDING,
 			'per_page' 		=> 1,
-			'orderby'  		=> 'none',
+			'orderby'  		=> 'date',
+			'order' 		=> 'ASC'
 		], 'ids' );
 	}
 

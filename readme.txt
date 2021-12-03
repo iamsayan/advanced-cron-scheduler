@@ -122,3 +122,6 @@ Release Date: 4th March, 2021
 Release Date: 2nd March, 2021
 
 * Initial Release.
+
+== Upgrade Notice ==
+Deactivate and Re-activate the plugin after Update process is completed.
