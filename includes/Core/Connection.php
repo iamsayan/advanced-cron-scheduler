@@ -33,7 +33,7 @@ class Connection
 		$this->filter( 'pre_unschedule_hook', 'pre_unschedule_hook', 5, 2 );
 		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 5, 3 );
 		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 5, 4 );
-        $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs', 5, 4 );
+        $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs', 5 );
 	}
 
 	/**
