@@ -27,6 +27,14 @@ class Connection
 	 */
 	public function register()
 	{
+		$this->action( 'plugins_loaded', 'register_hooks', 1 );
+	}
+
+    /**
+	 * Register Filter hooks.
+	 */
+	public function register_hooks()
+	{
 		$this->filter( 'pre_schedule_event', 'pre_schedule_event', 5, 2 );
 		$this->filter( 'pre_reschedule_event', 'pre_reschedule_event', 5, 2 );
 		$this->filter( 'pre_unschedule_event', 'pre_unschedule_event', 5, 4 );
