@@ -47,6 +47,7 @@ class Actions extends BaseController
 			$links[] = '<a href="https://actionscheduler.org/api/" target="_blank" rel="noopener">' . __( 'Usage', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
 			$links[] = '<a href="https://actionscheduler.org/faq/" target="_blank" rel="noopener">' . __( 'FAQ', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
 			$links[] = '<a href="https://github.com/iamsayan/advanced-cron-scheduler" target="_blank" rel="noopener">' . __( 'GitHub', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+			$links[] = '<a href="https://www.paypal.me/iamsayan/" target="_blank" rel="noopener">' . __( 'Donate', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
 			$links[] = '<a href="https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/?filter=5#new-post" target="_blank" rel="noopener" style="color: #ff2000;">★★★★★</a>';
 		}
 		

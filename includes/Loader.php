@@ -27,6 +27,7 @@ final class Loader
 			Base\Localization::class,
 			Core\Connection::class,
 			Core\MigrateActions::class,
+			Core\AdminBar::class,
 		];
 
 		return $services;

@@ -12,6 +12,7 @@ return array(
     'ACSWP\\Plugin\\Base\\BaseController' => $baseDir . '/includes/Base/BaseController.php',
     'ACSWP\\Plugin\\Base\\Deactivate' => $baseDir . '/includes/Base/Deactivate.php',
     'ACSWP\\Plugin\\Base\\Localization' => $baseDir . '/includes/Base/Localization.php',
+    'ACSWP\\Plugin\\Core\\AdminBar' => $baseDir . '/includes/Core/AdminBar.php',
     'ACSWP\\Plugin\\Core\\Connection' => $baseDir . '/includes/Core/Connection.php',
     'ACSWP\\Plugin\\Core\\MigrateActions' => $baseDir . '/includes/Core/MigrateActions.php',
     'ACSWP\\Plugin\\Helpers\\HelperFunctions' => $baseDir . '/includes/Helpers/HelperFunctions.php',
