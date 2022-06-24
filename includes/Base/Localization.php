@@ -3,7 +3,7 @@
  * Localization loader.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -25,8 +25,7 @@ class Localization extends BaseController
 	/**
 	 * Register functions.
 	 */
-	public function register() 
-	{
+	public function register() {
 		$this->action( 'plugins_loaded', 'load_textdomain' );
 	}
 
@@ -35,15 +34,7 @@ class Localization extends BaseController
      *
      * Note: the first-loaded translation file overrides any following ones if the same translation is present.
      */
-	public function load_textdomain()
-	{
-		$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-		$locale = apply_filters( 'plugin_locale', $locale, 'migrate-wp-cron-to-action-scheduler' ); // phpcs:ignore
-
-		unload_textdomain( 'migrate-wp-cron-to-action-scheduler' );
-		if ( false === load_textdomain( 'migrate-wp-cron-to-action-scheduler', WP_LANG_DIR . '/plugins/migrate-wp-cron-to-action-scheduler-' . $locale . '.mo' ) ) {
-			load_textdomain( 'migrate-wp-cron-to-action-scheduler', WP_LANG_DIR . '/migrate-wp-cron-to-action-scheduler/migrate-wp-cron-to-action-scheduler-' . $locale . '.mo' );
-		}
-		load_plugin_textdomain( 'migrate-wp-cron-to-action-scheduler', false, dirname( $this->plugin ) . '/languages/' ); 
+	public function load_textdomain() {
+		load_plugin_textdomain( 'migrate-wp-cron-to-action-scheduler', false, dirname( $this->plugin ) . '/languages' ); 
 	}
 }

@@ -3,7 +3,7 @@
  * Activation.
  *
  * @since      1.1.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -26,6 +26,6 @@ class Activate
 		set_transient( 'mwpcac-show-notice-on-activation', true, 15 );
 
 		// action
-		do_action( 'mwpcac/after_plugin_activate' );
+		do_action( 'mwpcac/plugin_activate' );
 	}
 }

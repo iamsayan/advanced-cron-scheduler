@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit89768520ea85c32bebf6f7d5c391bf98
 {
     public static $files = array (
-        'fea1002d371c65c9316f2f5740bc129c' => __DIR__ . '/..' . '/woocommerce/action-scheduler/action-scheduler.php',
+        '62ef5cb38872bf3bcee7b3fb2b386395' => __DIR__ . '/..' . '/woocommerce/action-scheduler/action-scheduler.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -36,10 +36,10 @@ class ComposerStaticInit89768520ea85c32bebf6f7d5c391bf98
         'Mwpcac\\Base\\RatingNotice' => __DIR__ . '/../..' . '/includes/Base/RatingNotice.php',
         'Mwpcac\\Core\\Connection' => __DIR__ . '/../..' . '/includes/Core/Connection.php',
         'Mwpcac\\Core\\MigrateActions' => __DIR__ . '/../..' . '/includes/Core/MigrateActions.php',
-        'Mwpcac\\Core\\SiteCache' => __DIR__ . '/../..' . '/includes/Core/SiteCache.php',
         'Mwpcac\\Helpers\\HelperFunctions' => __DIR__ . '/../..' . '/includes/Helpers/HelperFunctions.php',
         'Mwpcac\\Helpers\\Hooker' => __DIR__ . '/../..' . '/includes/Helpers/Hooker.php',
-        'Mwpcac\\MwpcacLoader' => __DIR__ . '/../..' . '/includes/MwpcacLoader.php',
+        'Mwpcac\\Helpers\\Schedular' => __DIR__ . '/../..' . '/includes/Helpers/Schedular.php',
+        'Mwpcac\\Loader' => __DIR__ . '/../..' . '/includes/Loader.php',
         'Mwpcac\\Tools\\DatabaseTable' => __DIR__ . '/../..' . '/includes/Tools/DatabaseTable.php',
     );
 

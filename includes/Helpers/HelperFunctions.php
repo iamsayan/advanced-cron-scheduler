@@ -3,7 +3,7 @@
  * Helper Functions.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Helpers
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -17,113 +17,6 @@ defined( 'ABSPATH' ) || exit;
  */
 trait HelperFunctions
 {
-	/**
-	 * Create the recurring action event.
-	 *
-	 * @param  integer $timestamp            Timestamp.
-	 * @param  integer $interval_in_seconds  Interval in Seconds.
-	 * @param  string  $hook                 Action Hook.
-	 * @param  array   $args                 Parameters.
-	 * @param  string  $group                Group Name.
-	 * @return string
-	 */
-	protected function set_recurring_action( $timestamp, $interval_in_seconds, $hook, $args = [], $group = 'mwpcac' )
-    {
-		$job_id = \as_schedule_recurring_action( $timestamp, $interval_in_seconds, $hook, $args, $group );
-
-		return $job_id;
-	}
-
-	/**
-	 * Create the single action event.
-	 *
-	 * @param  integer $timestamp  Timestamp.
-	 * @param  string  $hook       Hook.
-	 * @param  array   $arg        Parameter.
-	 * @param  string  $group      Group Name.
-	 * @return string
-	 */
-	protected function set_single_action( $timestamp, $hook, $args = [], $group = 'mwpcac' )
-    {
-		$job_id = \as_schedule_single_action( $timestamp, $hook, $args, $group );
-
-		$this->do_action( 'single_action_set', $timestamp, $hook, $args, $job_id );
-
-		return $job_id;
-	}
-
-	/**
-	 * Unschedule all action events.
-	 *
-	 * @param  string  $hook       Hook.
-	 * @param  array   $arg        Parameter.
-	 * @param  string  $group      Group Name.
-	 */
-	protected function unschedule_all_actions( $hook, $args = [], $group = 'mwpcac' )
-    {
-		\as_unschedule_all_actions( $hook, $args, $group );
-	}
-
-	/**
-	 * Unschedule last action event.
-	 *
-	 * @param  string  $hook       Hook.
-	 * @param  array   $arg        Parameter.
-	 * @param  string  $group      Group Name.
-	 */
-	protected function unschedule_last_action( $hook, $args = [], $group = 'mwpcac' )
-    {
-		\as_unschedule_action( $hook, $args, $group );
-	}
-
-	/**
-	 * Returns next action timestamp.
-	 *
-	 * @param  string  $hook   Action Hook.
-	 * @param  array   $args   Parameters.
-	 * @param  string  $group  Group Name.
-	 * @return null|string
-	 */
-	protected function get_next_action( $hook, $args = [], $group = 'mwpcac' )
-    {
-		return \as_next_scheduled_action( $hook, $args, $group );
-	}
-
-	/**
-	 * Check if next action is exists.
-	 *
-	 * @param  string  $hook   Action Hook.
-	 * @param  array   $args   Parameters.
-	 * @param  string  $group  Group Name.
-	 * @return null|string
-	 */
-	protected function has_next_action( $hook, $args = [], $group = 'mwpcac' )
-    {
-		return \as_has_scheduled_action( $hook, $args, $group );
-	}
-
-	/**
-	 * Check if next action is exists.
-	 *
-	 * @param  string  $hook   Action Hook.
-	 * @param  array   $args   Parameters.
-	 * @param  string  $group  Group Name.
-	 * @return null|string
-	 */
-	protected function get_next_action_by_data( $hook, $args, $timestamp, $group = 'mwpcac' )
-    {
-		return \as_get_scheduled_actions( [
-			'hook' 			=> $hook,
-			'args' 			=> $args,
-			'date' 			=> gmdate( 'U', $timestamp ),
-			'date_compare' 	=> '=',
-			'group' 		=> $group,
-			'status' 		=> \ActionScheduler_Store::STATUS_PENDING,
-			'per_page' 		=> 1,
-			'orderby'  		=> 'date',
-			'order' 		=> 'ASC'
-		], 'ids' );
-	}
 
 	/**
      * Get the WP Cron schedule names by interval.
@@ -137,8 +30,7 @@ trait HelperFunctions
      *
      * @return array Cron Schedules indexed by interval.
      */
-    protected function get_schedules_by_interval()
-	{
+    protected function get_schedules_by_interval() {
     	$schedules = [];
     
     	foreach ( wp_get_schedules() as $name => $schedule ) {
@@ -154,8 +46,7 @@ trait HelperFunctions
      * @param int $interval Cron schedule interval.
      * @return string Cron schedule name.
      */
-    protected function get_schedule_by_interval( $interval = null )
-	{
+    protected function get_schedule_by_interval( $interval = null ) {
     	if ( empty( $interval ) ) {
     		return false;
     	}
@@ -185,15 +76,15 @@ trait HelperFunctions
      *
      * @return int|bool The timestamp for the next occurrence of a pending scheduled action, true for an async or in-progress action or false if there is no matching action.
      */
-    protected function get_recurrence( $job_id ) {
+    protected function get_schedule( $job_id ) {
     	if ( ! \ActionScheduler::is_initialized( __FUNCTION__ ) ) {
     		return false;
     	}
     
     	$job = \ActionScheduler::store()->fetch_action( $job_id );
-		$recurrence = $job->get_schedule();
+		$schedule = $job->get_schedule();
 
-    	return $recurrence;
+    	return $schedule;
     }
 
 	/**
@@ -218,22 +109,25 @@ trait HelperFunctions
 	/**
      * Get Default WordPress Native Hooks.
      */
-    protected function get_protected_hooks()
-	{
-    	$hooks = apply_filters( 'mwpcac_protected_hooks', [
-            'wp_site_health_scheduled_check',
-            'recovery_mode_clean_expired_keys',
-            'wp_scheduled_auto_draft_delete',
+    protected function get_protected_hooks() {
+    	$hooks = $this->do_filter( 'protected_hooks', [
             'wp_privacy_delete_old_export_files',
-            'wp_version_check',
-            'wp_update_plugins',
-            'wp_update_themes',
-            'wp_scheduled_delete',
-            'delete_expired_transients'
+            'wp_update_user_counts',
+			'wp_version_check',
+			'wp_update_plugins',
+			'wp_update_themes',
+			'wp_https_detection',
+			'wp_site_health_scheduled_check',
+			'recovery_mode_clean_expired_keys',
+			'wp_scheduled_delete',
+			'delete_expired_transients',
+			'wp_scheduled_auto_draft_delete',
+			'recovery_mode_clean_expired_keys',
+            'fuck',
         ] );
     
         array_push( $hooks, 'action_scheduler_run_queue' );
     
-        return array_merge( apply_filters( 'mwpcac_exclude_event_hooks', [] ), $hooks );
+        return array_unique( array_merge( $this->do_filter( 'exclude_event_hooks', [] ), $hooks ) );
     }
 }
