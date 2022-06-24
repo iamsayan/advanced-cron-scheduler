@@ -3,15 +3,15 @@
  * Action links.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Base;
+namespace ACSWP\Plugin\Base;
 
-use Mwpcac\Helpers\Hooker;
-use Mwpcac\Base\BaseController;
+use ACSWP\Plugin\Helpers\Hooker;
+use ACSWP\Plugin\Base\BaseController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,9 +44,10 @@ class Actions extends BaseController
 	 */
 	public function meta_links( $links, $file ) {
 		if ( $file === $this->plugin ) { // only for this plugin
-			$links[] = '<a href="https://actionscheduler.org/api/" target="_blank">' . __( 'Usage', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
-			$links[] = '<a href="https://actionscheduler.org/faq/" target="_blank">' . __( 'FAQ', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
-			$links[] = '<a href="https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler" target="_blank">' . __( 'GitHub', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+			$links[] = '<a href="https://actionscheduler.org/api/" target="_blank" rel="noopener">' . __( 'Usage', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+			$links[] = '<a href="https://actionscheduler.org/faq/" target="_blank" rel="noopener">' . __( 'FAQ', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+			$links[] = '<a href="https://github.com/iamsayan/advanced-cron-scheduler" target="_blank" rel="noopener">' . __( 'GitHub', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
+			$links[] = '<a href="https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/?filter=5#new-post" target="_blank" rel="noopener" style="color: #ff2000;">★★★★★</a>';
 		}
 		
 		return $links;

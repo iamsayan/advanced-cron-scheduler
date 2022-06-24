@@ -3,16 +3,16 @@
  * Action links.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Core;
+namespace ACSWP\Plugin\Core;
 
-use Mwpcac\Helpers\Hooker;
-use Mwpcac\Helpers\Schedular;
-use Mwpcac\Helpers\HelperFunctions;
+use ACSWP\Plugin\Helpers\Hooker;
+use ACSWP\Plugin\Helpers\Scheduler;
+use ACSWP\Plugin\Helpers\HelperFunctions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Connection
 {
-	use Hooker, HelperFunctions, Schedular;
+	use Hooker, HelperFunctions, Scheduler;
 
     /**
 	 * List of Events.
@@ -136,8 +136,8 @@ class Connection
     /**
      * Reschedules a recurring event.
      *
-     * Note: The Action Schedular reschedule behaviour is intentionally different to WordPress's.
-     * To avoid drift of cron schedules, Action Schedular adds the interval to the next scheduled
+     * Note: The Action Scheduler reschedule behaviour is intentionally different to WordPress's.
+     * To avoid drift of cron schedules, Action Scheduler adds the interval to the next scheduled
      * run time without checking if this time is in the past.
      *
      * To ensure the next run time is in the future, it is recommended you delete and reschedule

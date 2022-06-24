@@ -1,21 +1,21 @@
 <?php
 /**
- * Action Schedular functions.
+ * Action Scheduler functions.
  *
  * @since      1.0.6
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Helpers
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Helpers
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Helpers;
+namespace ACSWP\Plugin\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Action Schedular Class
+ * Action Scheduler Class
  */
-trait Schedular
+trait Scheduler
 {
 	/**
 	 * Create the recurring action event.

@@ -7,40 +7,37 @@ namespace Composer\Autoload;
 class ComposerStaticInit89768520ea85c32bebf6f7d5c391bf98
 {
     public static $files = array (
-        '62ef5cb38872bf3bcee7b3fb2b386395' => __DIR__ . '/..' . '/woocommerce/action-scheduler/action-scheduler.php',
+        '8cd7f51cf36fd92d77543838a7a7b6f0' => __DIR__ . '/..' . '/woocommerce/action-scheduler/action-scheduler.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'M' => 
+        'A' => 
         array (
-            'Mwpcac\\' => 7,
+            'ACSWP\\Plugin\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Mwpcac\\' => 
+        'ACSWP\\Plugin\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
         ),
     );
 
     public static $classMap = array (
+        'ACSWP\\Plugin\\Base\\Actions' => __DIR__ . '/../..' . '/includes/Base/Actions.php',
+        'ACSWP\\Plugin\\Base\\Activate' => __DIR__ . '/../..' . '/includes/Base/Activate.php',
+        'ACSWP\\Plugin\\Base\\AdminNotice' => __DIR__ . '/../..' . '/includes/Base/AdminNotice.php',
+        'ACSWP\\Plugin\\Base\\BaseController' => __DIR__ . '/../..' . '/includes/Base/BaseController.php',
+        'ACSWP\\Plugin\\Base\\Deactivate' => __DIR__ . '/../..' . '/includes/Base/Deactivate.php',
+        'ACSWP\\Plugin\\Base\\Localization' => __DIR__ . '/../..' . '/includes/Base/Localization.php',
+        'ACSWP\\Plugin\\Core\\Connection' => __DIR__ . '/../..' . '/includes/Core/Connection.php',
+        'ACSWP\\Plugin\\Core\\MigrateActions' => __DIR__ . '/../..' . '/includes/Core/MigrateActions.php',
+        'ACSWP\\Plugin\\Helpers\\HelperFunctions' => __DIR__ . '/../..' . '/includes/Helpers/HelperFunctions.php',
+        'ACSWP\\Plugin\\Helpers\\Hooker' => __DIR__ . '/../..' . '/includes/Helpers/Hooker.php',
+        'ACSWP\\Plugin\\Helpers\\Scheduler' => __DIR__ . '/../..' . '/includes/Helpers/Scheduler.php',
+        'ACSWP\\Plugin\\Loader' => __DIR__ . '/../..' . '/includes/Loader.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Mwpcac\\Base\\Actions' => __DIR__ . '/../..' . '/includes/Base/Actions.php',
-        'Mwpcac\\Base\\Activate' => __DIR__ . '/../..' . '/includes/Base/Activate.php',
-        'Mwpcac\\Base\\AdminNotice' => __DIR__ . '/../..' . '/includes/Base/AdminNotice.php',
-        'Mwpcac\\Base\\BaseController' => __DIR__ . '/../..' . '/includes/Base/BaseController.php',
-        'Mwpcac\\Base\\Deactivate' => __DIR__ . '/../..' . '/includes/Base/Deactivate.php',
-        'Mwpcac\\Base\\DonateNotice' => __DIR__ . '/../..' . '/includes/Base/DonateNotice.php',
-        'Mwpcac\\Base\\Localization' => __DIR__ . '/../..' . '/includes/Base/Localization.php',
-        'Mwpcac\\Base\\RatingNotice' => __DIR__ . '/../..' . '/includes/Base/RatingNotice.php',
-        'Mwpcac\\Core\\Connection' => __DIR__ . '/../..' . '/includes/Core/Connection.php',
-        'Mwpcac\\Core\\MigrateActions' => __DIR__ . '/../..' . '/includes/Core/MigrateActions.php',
-        'Mwpcac\\Helpers\\HelperFunctions' => __DIR__ . '/../..' . '/includes/Helpers/HelperFunctions.php',
-        'Mwpcac\\Helpers\\Hooker' => __DIR__ . '/../..' . '/includes/Helpers/Hooker.php',
-        'Mwpcac\\Helpers\\Schedular' => __DIR__ . '/../..' . '/includes/Helpers/Schedular.php',
-        'Mwpcac\\Loader' => __DIR__ . '/../..' . '/includes/Loader.php',
-        'Mwpcac\\Tools\\DatabaseTable' => __DIR__ . '/../..' . '/includes/Tools/DatabaseTable.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

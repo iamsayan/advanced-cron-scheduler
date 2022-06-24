@@ -1,6 +1,6 @@
 {
-    "name": "iamsayan/migrate-wp-cron-to-action-scheduler",
-    "description": "The WP Cron Action Schedular plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library",
+    "name": "iamsayan/advanced-cron-scheduler",
+    "description": "The Advanced Cron Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library",
     "type": "wordpress-plugin",
     "license": "GPL-3.0",
     "authors": [
@@ -23,7 +23,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Mwpcac\\": "./includes"
+            "ACSWP\\Plugin\\": "./includes"
         },
         "files": [ "vendor/woocommerce/action-scheduler/action-scheduler.php" ]
     },

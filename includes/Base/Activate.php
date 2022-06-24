@@ -3,12 +3,12 @@
  * Activation.
  *
  * @since      1.1.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Base;
+namespace ACSWP\Plugin\Base;
 
 /**
  * Activation class.
@@ -23,9 +23,9 @@ class Activate
 			return;
 		}
 		
-		set_transient( 'mwpcac-show-notice-on-activation', true, 15 );
+		set_transient( 'acswp-show-notice-on-activation', true, 15 );
 
 		// action
-		do_action( 'mwpcac/plugin_activate' );
+		do_action( 'acswp/plugin_activate' );
 	}
 }

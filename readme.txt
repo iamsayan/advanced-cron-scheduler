@@ -1,15 +1,15 @@
-=== WP Cron Action Schedular ===
+=== Advanced Cron Scheduler for WordPress ===
 Contributors: Infosatech
 Tags: scheduler, cron, wp cron, debug, cron manager
 Requires at least: 5.2
 Tested up to: 6.0
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Requires PHP: 5.6
 Donate link: https://www.paypal.me/iamsayan/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-The WP Cron Action Schedular plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library.
+The Advanced Cron Scheduler for WordPress plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library.
 
 == Description ==
 
@@ -26,7 +26,7 @@ The WP-Cron system in WordPress is not a "real" cron system, which means events 
 * Long-running events may temporarily block the event runner
 * High traffic websites may suffer from sequential processing issues that block the event runner
 
-The WP Cron Action Schedular plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
+The Advanced Cron Scheduler for WordPress plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
 
 Action Scheduler is a scalable, traceable job queue for background processing large sets of actions in WordPress. It's specially designed to be distributed in WordPress plugins.
 
@@ -62,8 +62,8 @@ There you will find:
 
 ## Contribute
 
-* Active development of this plugin is handled [on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/).
-* Feel free to [fork the project on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/) and submit your contributions via pull request.
+* Active development of this plugin is handled [on GitHub](https://github.com/iamsayan/advanced-cron-scheduler/).
+* Feel free to [fork the project on GitHub](https://github.com/iamsayan/advanced-cron-scheduler/) and submit your contributions via pull request.
 
 ## Credits
 
@@ -72,9 +72,9 @@ Action Scheduler is developed and maintained by [Automattic](http://automattic.c
 == Installation ==
 
 1. Visit 'Plugins > Add New'
-2. Search for 'WP Cron Action Schedular' and install it.
+2. Search for 'Advanced Cron Scheduler' and install it.
 3. Or you can upload the `migrate-wp-cron-to-action-scheduler` folder to the `/wp-content/plugins/` directory manually.
-4. Activate WP Cron Action Schedular from your Plugins page.
+4. Activate Advanced Cron Scheduler from your Plugins page.
 5. After activation go to 'Tools > Scheduled Actions'.
 
 == Frequently Asked Questions ==
@@ -85,7 +85,7 @@ To Avoid all limitations of WP Cron, this plugin automatically replaces all the 
 
 = Will it work with my theme? =
 
-Yes, our plugins work independently of themes you are using. As long as your website is running on WordPress version 5.1 or later, it will work.
+Yes, our plugins work independently of themes you are using. As long as your website is running on WordPress version 5.2 or later, it will work.
 
 == Screenshots ==
 
@@ -93,7 +93,13 @@ Yes, our plugins work independently of themes you are using. As long as your web
 
 == Changelog ==
 
-If you like WP Cron Action Schedular, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+If you like Advanced Cron Scheduler, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+
+= 1.0.7 =
+Release Date: 24th June, 2022
+
+* Removed: Unused code.
+* Fixed: Typo.
 
 = 1.0.6 =
 Release Date: 24th June, 2022
@@ -106,7 +112,7 @@ Release Date: 24th June, 2022
 = 1.0.5 =
 Release Date: 3rd December, 2021
 
-* Fixed: An errors which occurs if cron is creating early before initialization of Action schedular library.
+* Fixed: An errors which occurs if cron is creating early before initialization of Action scheduler library.
 
 = 1.0.4 =
 Release Date: 2nd December, 2021

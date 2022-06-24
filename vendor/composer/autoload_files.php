@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    '62ef5cb38872bf3bcee7b3fb2b386395' => $vendorDir . '/woocommerce/action-scheduler/action-scheduler.php',
+    '8cd7f51cf36fd92d77543838a7a7b6f0' => $vendorDir . '/woocommerce/action-scheduler/action-scheduler.php',
 );

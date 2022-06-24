@@ -1,6 +1,6 @@
-# WP Cron Action Schedular
+# Advanced Cron Scheduler for WordPress
 
-The WP Cron Action Schedular plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library. 
+The Advanced Cron Scheduler for WordPress plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library. 
 
 The WP-Cron system in WordPress is not a "real" cron system, which means events may not run exactly according to their schedule because the system relies on regular traffic to the website in order to trigger scheduled events.
 
@@ -15,7 +15,7 @@ The WP-Cron system in WordPress is not a "real" cron system, which means events 
 * Long-running events may temporarily block the event runner
 * High traffic websites may suffer from sequential processing issues that block the event runner
 
-The WP Cron Action Schedular plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
+The Advanced Cron Scheduler for WordPress plugin does alter the way that WordPress core runs cron events using the Action Scheduler Library.
 
 Action Scheduler is a scalable, traceable job queue for background processing large sets of actions in WordPress. It's specially designed to be distributed in WordPress plugins.
 
@@ -51,8 +51,8 @@ There you will find:
 
 ## Contribute
 
-* Active development of this plugin is handled [on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/).
-* Feel free to [fork the project on GitHub](https://github.com/iamsayan/migrate-wp-cron-to-action-scheduler/) and submit your contributions via pull request.
+* Active development of this plugin is handled [on GitHub](https://github.com/iamsayan/advanced-cron-scheduler/).
+* Feel free to [fork the project on GitHub](https://github.com/iamsayan/advanced-cron-scheduler/) and submit your contributions via pull request.
 
 ## Credits
 

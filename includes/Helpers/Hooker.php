@@ -3,12 +3,12 @@
  * The Hooker.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Helpers
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Helpers
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Helpers;
+namespace ACSWP\Plugin\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -83,7 +83,7 @@ trait Hooker {
 			return;
 		}
 
-		$action = 'mwpcac/' . $args[0];
+		$action = 'acswp/' . $args[0];
 		unset( $args[0] );
 
 		\do_action_ref_array( $action, \array_merge( [], $args ) );
@@ -97,7 +97,7 @@ trait Hooker {
 			return;
 		}
 
-		$action = 'mwpcac/' . $args[0];
+		$action = 'acswp/' . $args[0];
 		unset( $args[0] );
 
 		return \apply_filters_ref_array( $action, \array_merge( [], $args ) );

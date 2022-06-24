@@ -1,8 +1,14 @@
 # Changelog
 
-If you like WP Cron Action Schedular plugin, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+If you like Advanced Cron Scheduler plugin, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/?filter=5#new-post). It helps to keep development and support going strong. Thank you!
 
 All notable changes to this project will be documented in this file.
+
+## 1.0.7
+Release Date: 24th June, 2022
+
+* Removed: Unused code.
+* Fixed: Typo.
 
 ## 1.0.6
 Release Date: 24th June, 2022
@@ -15,7 +21,7 @@ Release Date: 24th June, 2022
 ## 1.0.5
 Release Date: 3rd December, 2021
 
-* Fixed: An errors which occurs if cron is creating early before initialization of Action schedular library.
+* Fixed: An errors which occurs if cron is creating early before initialization of Action scheduler library.
 
 ## 1.0.4
 Release Date: 2nd December, 2021
