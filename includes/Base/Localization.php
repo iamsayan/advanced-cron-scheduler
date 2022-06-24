@@ -3,15 +3,15 @@
  * Localization loader.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Base;
+namespace ACSWP\Plugin\Base;
 
-use Mwpcac\Helpers\Hooker;
-use Mwpcac\Base\BaseController;
+use ACSWP\Plugin\Helpers\Hooker;
+use ACSWP\Plugin\Base\BaseController;
 
 defined( 'ABSPATH' ) || exit;
 

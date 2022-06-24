@@ -3,12 +3,12 @@
  * Register all classes
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Core
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Core
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac;
+namespace ACSWP\Plugin;
 
 /**
  * Mwpcac Main Class.
@@ -24,11 +24,10 @@ final class Loader
 		$services = [
 			Base\Actions::class,
 			Base\AdminNotice::class,
-			Base\DonateNotice::class,
 			Base\Localization::class,
-			Base\RatingNotice::class,
 			Core\Connection::class,
 			Core\MigrateActions::class,
+			Core\AdminBar::class,
 		];
 
 		return $services;

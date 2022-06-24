@@ -3,16 +3,16 @@
  * Migrate Crons to Action Scheduler.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Core;
+namespace ACSWP\Plugin\Core;
 
-use Mwpcac\Helpers\Hooker;
-use Mwpcac\Helpers\Schedular;
-use Mwpcac\Helpers\HelperFunctions;
+use ACSWP\Plugin\Helpers\Hooker;
+use ACSWP\Plugin\Helpers\Scheduler;
+use ACSWP\Plugin\Helpers\HelperFunctions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,14 +21,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class MigrateActions
 {
-	use Hooker, HelperFunctions, Schedular;
+	use Hooker, HelperFunctions, Scheduler;
 
 	/**
 	 * Register functions.
 	 */
 	public function register() {
-        $this->action( 'mwpcac/plugin_activate', 'migrate_old_crons' );
-        $this->action( 'mwpcac/plugin_deactivate', 'regenerate_crons' );
+        $this->action( 'acswp/plugin_activate', 'migrate_old_crons' );
+        $this->action( 'acswp/plugin_deactivate', 'regenerate_crons' );
 	}
 
 	/**

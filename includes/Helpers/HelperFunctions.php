@@ -3,12 +3,12 @@
  * Helper Functions.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Helpers
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Helpers
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Helpers;
+namespace ACSWP\Plugin\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,7 +21,7 @@ trait HelperFunctions
 	/**
      * Get the WP Cron schedule names by interval.
      *
-     * This is used as a fallback when Action Schedular does not have the
+     * This is used as a fallback when Action Scheduler does not have the
      * schedule name stored in the database to make a best guest as
      * the schedules name.
      *

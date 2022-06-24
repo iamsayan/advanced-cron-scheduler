@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Mwpcac\\' => array($baseDir . '/includes'),
+    'ACSWP\\Plugin\\' => array($baseDir . '/includes'),
 );

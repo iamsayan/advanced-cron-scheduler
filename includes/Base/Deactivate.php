@@ -3,12 +3,12 @@
  * Deactivation.
  *
  * @since      1.0.0
- * @package    WP Cron Action Schedular
- * @subpackage Mwpcac\Base
+ * @package    Advanced Cron Scheduler
+ * @subpackage ACSWP\Plugin\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
 
-namespace Mwpcac\Base;
+namespace ACSWP\Plugin\Base;
 
 /**
  * Deactivation class.
@@ -23,11 +23,11 @@ class Deactivate
 			return;
 		}
 
-		delete_option( 'mwpcac_plugin_dismiss_rating_notice' );
-		delete_option( 'mwpcac_plugin_no_thanks_rating_notice' );
-		delete_option( 'mwpcac_plugin_installed_time' );
+		delete_option( 'acswp_plugin_dismiss_rating_notice' );
+		delete_option( 'acswp_plugin_no_thanks_rating_notice' );
+		delete_option( 'acswp_plugin_installed_time' );
 
 		// action
-		do_action( 'mwpcac/plugin_deactivate' );
+		do_action( 'acswp/plugin_deactivate' );
 	}
 }
