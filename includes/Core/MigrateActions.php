@@ -36,7 +36,7 @@ class MigrateActions
 	 */
 	public function migrate_old_crons() {
         global $wp_version;
-        if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
+        if ( version_compare( $wp_version, '5.2.0', '<' ) ) {
             return;
         }
 
@@ -70,7 +70,7 @@ class MigrateActions
 	 */
     public function regenerate_crons() {
         global $wpdb, $wp_version;
-        if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
+        if ( version_compare( $wp_version, '5.2.0', '<' ) ) {
             return;
         }
 
