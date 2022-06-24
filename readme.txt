@@ -98,6 +98,7 @@ If you like Advanced Cron Scheduler, please take a moment to [give a 5-star rati
 = 1.0.7 =
 Release Date: 24th June, 2022
 
+* Added: Admin Bar Link.
 * Removed: Unused code.
 * Fixed: Typo.
 

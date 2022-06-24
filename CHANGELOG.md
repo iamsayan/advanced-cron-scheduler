@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ## 1.0.7
 Release Date: 24th June, 2022
 
+* Added: Admin Bar Link.
 * Removed: Unused code.
 * Fixed: Typo.
 
