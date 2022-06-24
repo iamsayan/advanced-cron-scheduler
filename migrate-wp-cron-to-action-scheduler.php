@@ -70,10 +70,3 @@ if ( ! function_exists( 'mwpcac_plugin_init' ) ) {
 	}
 }
 mwpcac_plugin_init();
-
-add_action('init', function() {
-    if ( ! wp_next_scheduled ( 'svd_cron' ) ) {
-		error_log('fgfg');
-        wp_schedule_event( time(), 'daily', 'svd_cron' );
-    }
-});
