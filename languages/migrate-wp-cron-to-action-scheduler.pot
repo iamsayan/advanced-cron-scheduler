@@ -1,15 +1,15 @@
-# Copyright (C) 2021 Sayan Datta
+# Copyright (C) 2022 Sayan Datta
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Cron Action Schedular 1.0.5\n"
+"Project-Id-Version: WP Cron Action Schedular 1.0.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-03T05:15:20+00:00\n"
+"POT-Creation-Date: 2022-06-24T11:47:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: migrate-wp-cron-to-action-scheduler\n"
@@ -34,66 +34,70 @@ msgstr ""
 msgid "https://sayandatta.in"
 msgstr ""
 
-#: includes/Base/Actions.php:40
+#: includes/Base/Actions.php:37
 msgid "Action Scheduler"
 msgstr ""
 
-#: includes/Base/Actions.php:51
+#: includes/Base/Actions.php:47
 msgid "Usage"
 msgstr ""
 
-#: includes/Base/Actions.php:52
+#: includes/Base/Actions.php:48
 msgid "FAQ"
 msgstr ""
 
+#: includes/Base/Actions.php:49
+msgid "GitHub"
+msgstr ""
+
 #. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:44
+#: includes/Base/AdminNotice.php:42
 msgid "Your version of WordPress is below the minimum version of WordPress required by %s plugin. Please upgrade WordPress to 5.1.0 or later."
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:52
+#: includes/Base/AdminNotice.php:50
 msgid "Your version of PHP is below the minimum version of PHP required by %s plugin. Please contact your host and request that your version be upgraded to 5.6 or later."
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:61
+#: includes/Base/AdminNotice.php:59
 msgid "Thanks for installing %1$s v%2$s plugin. Click <a href=\"%3$s\">here</a> to view Action Scheduler tasks."
 msgstr ""
 
-#: includes/Base/DonateNotice.php:50
+#: includes/Base/DonateNotice.php:48
 msgid "Hey, I noticed you've been using WP Cron Action Schedular for more than 2 week – that’s awesome! If you like WP Cron Action Schedular and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!"
 msgstr ""
 
-#: includes/Base/DonateNotice.php:51
+#: includes/Base/DonateNotice.php:49
 msgid "Donate Now"
 msgstr ""
 
-#: includes/Base/DonateNotice.php:52
+#: includes/Base/DonateNotice.php:50
 msgid "I already donated"
 msgstr ""
 
-#: includes/Base/DonateNotice.php:53
-#: includes/Base/RatingNotice.php:54
+#: includes/Base/DonateNotice.php:51
+#: includes/Base/RatingNotice.php:52
 msgid "Nope&#44; maybe later"
 msgstr ""
 
-#: includes/Base/DonateNotice.php:54
+#: includes/Base/DonateNotice.php:52
 msgid "I don't want to donate"
 msgstr ""
 
-#: includes/Base/RatingNotice.php:51
+#: includes/Base/RatingNotice.php:49
 msgid "Hey, I noticed you've been using WP Cron Action Schedular for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation."
 msgstr ""
 
-#: includes/Base/RatingNotice.php:52
+#: includes/Base/RatingNotice.php:50
 msgid "Ok, you deserve it"
 msgstr ""
 
-#: includes/Base/RatingNotice.php:53
+#: includes/Base/RatingNotice.php:51
 msgid "I already did"
 msgstr ""
 
-#: includes/Base/RatingNotice.php:55
+#: includes/Base/RatingNotice.php:53
 msgid "I don't want to rate"
 msgstr ""
