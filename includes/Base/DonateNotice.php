@@ -3,7 +3,7 @@
  * Donation notice.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -24,8 +24,7 @@ class DonateNotice
 	/**
 	 * Register functions.
 	 */
-	public function register()
-	{
+	public function register() {
 		$this->action( 'admin_notices', 'show_notice' );
 		$this->action( 'admin_init', 'dismiss_notice' );
 	}
@@ -33,8 +32,7 @@ class DonateNotice
 	/**
 	 * Show admin notices.
 	 */
-	public function show_notice()
-	{
+	public function show_notice() {
 		// Show notice after 240 hours (10 days) from installed time.
 		if ( $this->calculate_time() > strtotime( '-360 hours' )
 			|| '1' === get_option( 'mwpcac_plugin_dismiss_donate_notice' )
@@ -47,7 +45,7 @@ class DonateNotice
 		$no_thanks = wp_nonce_url( add_query_arg( 'mwpcac_donate_notice_action', 'no_thanks_donate_true' ), 'mwpcac_no_thanks_donate_true' ); ?>
 		
 		<div class="notice notice-success">
-			<p><?php esc_html_e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 2 week – that’s awesome! If you like Migrate WP Cron to Action Scheduler and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
+			<p><?php esc_html_e( 'Hey, I noticed you\'ve been using WP Cron Action Schedular for more than 2 week – that’s awesome! If you like WP Cron Action Schedular and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
 			<p><a href="https://www.paypal.me/iamsayan" target="_blank" class="button button-secondary"><?php esc_html_e( 'Donate Now', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
 			<a href="<?php echo esc_url( $dismiss ); ?>" class="already-did"><strong><?php esc_html_e( 'I already donated', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
 			<a href="<?php echo esc_url( $no_thanks ); ?>" class="later"><strong><?php esc_html_e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
@@ -59,9 +57,8 @@ class DonateNotice
 	/**
 	 * Dismiss admin notices.
 	 */
-	public function dismiss_notice()
-	{
-		if( get_option( 'mwpcac_plugin_no_thanks_donate_notice' ) === '1' ) {
+	public function dismiss_notice() {
+		if ( get_option( 'mwpcac_plugin_no_thanks_donate_notice' ) === '1' ) {
 			if ( get_option( 'mwpcac_plugin_dismissed_time_donate' ) > strtotime( '-360 hours' ) ) {
 				return;
 			}
@@ -92,8 +89,7 @@ class DonateNotice
 	/**
 	 * Calculate install time.
 	 */
-	private function calculate_time()
-	{
+	private function calculate_time() {
 		$installed_time = get_option( 'mwpcac_plugin_installed_time_donate' );
 		
 		if ( ! $installed_time ) {

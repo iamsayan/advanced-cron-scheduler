@@ -3,7 +3,7 @@
  * Register all classes
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Core
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -13,15 +13,14 @@ namespace Mwpcac;
 /**
  * Mwpcac Main Class.
  */
-final class MwpcacLoader
+final class Loader
 {
 	/**
 	 * Store all the classes inside an array
 	 * 
 	 * @return array Full list of classes
 	 */
-	public static function get_services() 
-	{
+	public static function get_services() {
 		$services = [
 			Base\Actions::class,
 			Base\AdminNotice::class,
@@ -30,8 +29,6 @@ final class MwpcacLoader
 			Base\RatingNotice::class,
 			Core\Connection::class,
 			Core\MigrateActions::class,
-			Core\SiteCache::class,
-			Tools\DatabaseTable::class
 		];
 
 		return $services;
@@ -41,8 +38,7 @@ final class MwpcacLoader
 	 * Loop through the classes, initialize them, 
 	 * and call the register() method if it exists
 	 */
-	public static function register_services() 
-	{
+	public static function register_services() {
 		foreach ( self::get_services() as $class ) {
 			$service = self::instantiate( $class );
 			if ( method_exists( $service, 'register' ) ) {
@@ -57,8 +53,7 @@ final class MwpcacLoader
 	 * @param  class $class    class from the services array
 	 * @return class instance  new instance of the class
 	 */
-	private static function instantiate( $class )
-	{
+	private static function instantiate( $class ) {
 		$service = new $class();
 
 		return $service;

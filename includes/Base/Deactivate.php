@@ -3,7 +3,7 @@
  * Deactivation.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -28,6 +28,6 @@ class Deactivate
 		delete_option( 'mwpcac_plugin_installed_time' );
 
 		// action
-		do_action( 'mwpcac/after_plugin_deactivate' );
+		do_action( 'mwpcac/plugin_deactivate' );
 	}
 }

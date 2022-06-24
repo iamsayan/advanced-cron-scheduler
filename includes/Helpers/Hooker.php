@@ -3,7 +3,7 @@
  * The Hooker.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Helpers
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */

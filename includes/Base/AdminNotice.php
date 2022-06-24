@@ -3,7 +3,7 @@
  * Admin notices.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -25,16 +25,14 @@ class AdminNotice extends BaseController
 	/**
 	 * Register functions.
 	 */
-	public function register()
-	{
+	public function register() {
 		$this->action( 'admin_notices', 'install_notice' );
 	}
 	
 	/**
 	 * Show internal admin notices.
 	 */
-	public function install_notice()
-	{
+	public function install_notice() {
 		global $wp_version;
 
 		// Show a warning to sites running PHP < 5.6

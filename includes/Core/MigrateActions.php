@@ -3,7 +3,7 @@
  * Migrate Crons to Action Scheduler.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -11,6 +11,7 @@
 namespace Mwpcac\Core;
 
 use Mwpcac\Helpers\Hooker;
+use Mwpcac\Helpers\Schedular;
 use Mwpcac\Helpers\HelperFunctions;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,103 +21,65 @@ defined( 'ABSPATH' ) || exit;
  */
 class MigrateActions
 {
-	use Hooker, HelperFunctions;
+	use Hooker, HelperFunctions, Schedular;
 
 	/**
 	 * Register functions.
 	 */
-	public function register()
-	{
-        $this->action( 'mwpcac/after_plugin_activate', 'migrate_old_crons', 5 );
-        $this->action( 'mwpcac/single_action_set', 'insert_hook', 5, 4 );
-        $this->action( 'mwpcac/after_plugin_deactivate', 'regenerate_crons', 99 );
+	public function register() {
+        $this->action( 'mwpcac/plugin_activate', 'migrate_old_crons' );
+        $this->action( 'mwpcac/plugin_deactivate', 'regenerate_crons' );
 	}
 
 	/**
 	 * Migrate old Crons.
 	 */
-	public function migrate_old_crons()
-	{
+	public function migrate_old_crons() {
         global $wp_version;
         if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
             return;
         }
 
-        // remove action scheduler schema if already exists.
-        delete_option( 'schema-ActionScheduler_StoreSchema' );
-
 		$crons = _get_cron_array();
 	    foreach ( $crons as $timestamp => $data ) {
 	    	foreach ( $data as $hook => $schedule ) {
 	    		foreach ( $schedule as $id => $info ) {
-                    if ( ! in_array( $hook, $this->get_protected_hooks() ) ) {
-	    			    if ( ! empty( $info['schedule'] ) && isset( $info['interval'] ) ) {
-                            if ( ! $this->has_next_action( $hook, $info['args'] ) ) {
-                                $this->set_recurring_action( $timestamp, $info['interval'], $hook, $info['args'] );
-                            }
-                        } else {
-                            if ( empty( $this->get_next_action_by_data( $hook, $info['args'], $timestamp ) ) ) {
-                                $this->set_single_action( $timestamp, $hook, $info['args'] );
-                            }
-                        }
-
-                        // remove pre scheduled crons
-                        $this->remove_old_crons( $timestamp, $hook, $info['args'] );
+                    if ( in_array( $hook, $this->get_protected_hooks() ) ) {
+                        continue;
                     }
+
+                    if ( ! empty( $info['schedule'] ) && isset( $info['interval'] ) ) {
+                        if ( ! $this->has_next_action( $hook, $info['args'] ) ) {
+                            $this->set_recurring_action( $timestamp, $info['interval'], $hook, $info['args'] );
+                        }
+                    } else {
+                        if ( empty( $this->get_next_action_by_data( $hook, $info['args'], $timestamp ) ) ) {
+                            $this->set_single_action( $timestamp, $hook, $info['args'] );
+                        }
+                    }
+
+                    // remove pre scheduled crons
+                    $this->remove_wp_cron( $timestamp, $hook, $info['args'] );
 	    		}    
 	    	}
 	    }
 	}
 
     /**
-     * Insert hooks into db for future reference.
-     *
-     * @param int       $timestamp Timestamp for when to run the event.
-     * @param string    $hook      Action hook, the execution of which will be unscheduled.
-     * @param array     $args      Arguments to pass to the hook's callback function.
-     */
-    public function insert_hook( $timestamp, $hook, $args, $job_id )
-	{
-		$data = get_option( 'mwpcac_single_action_hooks' );
-		if ( empty( $data ) ) $data = [];
-
-        $data[ $job_id ] = $hook;
-
-		update_option( 'mwpcac_single_action_hooks', $data );
-	}
-
-    /**
 	 * Re-Generate crons.
 	 */
-    public function regenerate_crons()
-	{
+    public function regenerate_crons() {
         global $wpdb, $wp_version;
         if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
             return;
         }
 
-		$data = get_option( 'mwpcac_single_action_hooks' );
-		if ( empty( $data ) ) return;
-        
-        $table_name = $wpdb->prefix . 'actionscheduler_actions';
-        $status = 'pending';
-         
-        $statement = $wpdb->prepare( "SELECT hook, scheduled_date_gmt, args FROM {$table_name} WHERE status = %s", $status );
+        $statement = $wpdb->prepare( "SELECT a.action_id, a.hook, a.scheduled_date_gmt, a.args, g.slug AS `group` FROM {$wpdb->actionscheduler_actions} a LEFT JOIN {$wpdb->actionscheduler_groups} g ON a.group_id=g.group_id WHERE a.status=%s AND g.slug=%s", 'pending', 'mwpcac' );
         $values = $wpdb->get_results( $statement, ARRAY_A );
-
-        if ( ! empty( $values ) && ! empty( $values ) ) {
-            foreach ( $values as $value ) {
-                foreach ( $data as $id => $hook ) {
-                    if ( $value['hook'] === $hook ) {
-                        $this->generate_wp_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
-                        $this->cancel_scheduled_action( $id );
-                    }
-                }
-            }
+        foreach ( $values as $value ) {
+            $this->generate_wp_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
+            $this->cancel_scheduled_action( $value['action_id'] );
         }
-
-        delete_option( 'mwpcac_single_action_hooks' );
-        delete_option( 'schema-ActionScheduler_StoreSchema' );
 	}
 
     /**
@@ -126,10 +89,12 @@ class MigrateActions
      * @param string    $hook      Action hook, the execution of which will be unscheduled.
      * @param array     $args      Arguments to pass to the hook's callback function.
      */
-    private function generate_wp_cron( $timestamp, $hook, $args )
-    {
+    private function generate_wp_cron( $timestamp, $hook, $args ) {
         // get crons
         $crons = _get_cron_array();
+        if ( ! is_array( $crons ) ) {
+            $crons = [];
+        }
     
         // get keys
         $key = md5( serialize( $args ) );
@@ -146,20 +111,13 @@ class MigrateActions
     }
 
 	/**
-     * Remove old cron events.
+     * Remove WP Cron Event.
      *
-     * @param stdClass  $event {
-     *     An object containing an event's data.
-     *
-     *     @type string       $hook      Action hook to execute when the event is run.
-     *     @type int          $timestamp Unix timestamp (UTC) for when to next run the event.
-     *     @type string|false $schedule  How often the event should subsequently recur.
-     *     @type array        $args      Array containing each separate argument to pass to the hook's callback function.
-     *     @type int          $interval  The interval time in seconds for the schedule. Only present for recurring events.
-     * }
+     * @param int       $timestamp Timestamp for when to run the event.
+     * @param string    $hook      Action hook, the execution of which will be unscheduled.
+     * @param array     $args      Arguments to pass to the hook's callback function.
      */
-    private function remove_old_crons( $timestamp, $hook, $args )
-    {
+    private function remove_wp_cron( $timestamp, $hook, $args ) {
         // get crons
         $crons = _get_cron_array();
     

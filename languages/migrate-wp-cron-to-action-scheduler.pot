@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Migrate WP Cron to Action Scheduler 1.0.5\n"
+"Project-Id-Version: WP Cron Action Schedular 1.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Domain: migrate-wp-cron-to-action-scheduler\n"
 
 #. Plugin Name of the plugin
-msgid "Migrate WP Cron to Action Scheduler"
+msgid "WP Cron Action Schedular"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -23,7 +23,7 @@ msgid "https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/"
 msgstr ""
 
 #. Description of the plugin
-msgid "The Migrate WP Cron to Action Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library."
+msgid "The WP Cron Action Schedular plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library."
 msgstr ""
 
 #. Author of the plugin
@@ -62,7 +62,7 @@ msgid "Thanks for installing %1$s v%2$s plugin. Click <a href=\"%3$s\">here</a> 
 msgstr ""
 
 #: includes/Base/DonateNotice.php:50
-msgid "Hey, I noticed you've been using Migrate WP Cron to Action Scheduler for more than 2 week – that’s awesome! If you like Migrate WP Cron to Action Scheduler and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!"
+msgid "Hey, I noticed you've been using WP Cron Action Schedular for more than 2 week – that’s awesome! If you like WP Cron Action Schedular and you are satisfied with the plugin, isn’t that worth a coffee or two? Please consider donating. Donations help me to continue support and development of this free plugin! Thank you very much!"
 msgstr ""
 
 #: includes/Base/DonateNotice.php:51
@@ -83,7 +83,7 @@ msgid "I don't want to donate"
 msgstr ""
 
 #: includes/Base/RatingNotice.php:51
-msgid "Hey, I noticed you've been using Migrate WP Cron to Action Scheduler for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation."
+msgid "Hey, I noticed you've been using WP Cron Action Schedular for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation."
 msgstr ""
 
 #: includes/Base/RatingNotice.php:52

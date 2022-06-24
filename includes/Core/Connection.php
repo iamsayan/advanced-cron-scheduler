@@ -3,7 +3,7 @@
  * Action links.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -11,6 +11,7 @@
 namespace Mwpcac\Core;
 
 use Mwpcac\Helpers\Hooker;
+use Mwpcac\Helpers\Schedular;
 use Mwpcac\Helpers\HelperFunctions;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,28 +21,27 @@ defined( 'ABSPATH' ) || exit;
  */
 class Connection
 {
-	use Hooker, HelperFunctions;
+	use Hooker, HelperFunctions, Schedular;
+
+    /**
+	 * List of Events.
+	 *
+	 * @var array
+	 */
+    protected $events = [];
 
 	/**
 	 * Register functions.
 	 */
-	public function register()
-	{
-		$this->action( 'plugins_loaded', 'register_hooks', 1 );
-	}
-
-    /**
-	 * Register Filter hooks.
-	 */
-	public function register_hooks()
-	{
-		$this->filter( 'pre_schedule_event', 'pre_schedule_event', 5, 2 );
-		$this->filter( 'pre_reschedule_event', 'pre_reschedule_event', 5, 2 );
-		$this->filter( 'pre_unschedule_event', 'pre_unschedule_event', 5, 4 );
-		$this->filter( 'pre_unschedule_hook', 'pre_unschedule_hook', 5, 2 );
-		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 5, 3 );
-		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 5, 4 );
-        $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs', 5 );
+	public function register() {
+		$this->filter( 'pre_schedule_event', 'pre_schedule_event', 10, 2 );
+		$this->filter( 'pre_reschedule_event', 'pre_reschedule_event', 10, 2 );
+		$this->filter( 'pre_unschedule_event', 'pre_unschedule_event', 10, 4 );
+		$this->filter( 'pre_unschedule_hook', 'pre_unschedule_hook', 10, 2 );
+		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 10, 3 );
+		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 10, 4 );
+        $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs' );
+        $this->action( 'init', 'register_crons' );
 	}
 
 	/**
@@ -59,22 +59,25 @@ class Connection
      * }
      * @return null|bool True if event successfully scheduled. False for failure.
      */
-    public function pre_schedule_event( $pre, $event )
-	{
+    public function pre_schedule_event( $pre, $event ) {
         // Allow other filters to do their thing.
     	if ( $pre !== null ) {
     		return $pre;
     	}
-    
-    	/**
+
+        /**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $event->hook, $this->get_protected_hooks() ) ) {
             return null;
         }
-    
+
+        if ( ! did_action( 'init' ) ) {
+            $this->events[ $event->hook ] = $event;
+
+    		return false;
+    	}
+        
         if ( $event->schedule === false ) {
             // Search ten minute range to test for duplicate events.
     	    if ( $event->timestamp < time() + 10 * MINUTE_IN_SECONDS ) {
@@ -152,8 +155,7 @@ class Connection
      * }
      * @return bool True if event successfully rescheduled. False for failure.
      */
-    function pre_reschedule_event( $pre, $event )
-    {
+    public function pre_reschedule_event( $pre, $event ) {
         // Allow other filters to do their thing.
         if ( $pre !== null ) {
             return $pre;
@@ -161,12 +163,14 @@ class Connection
 
         /**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $event->hook, $this->get_protected_hooks() ) ) {
             return null;
         }
+
+        if ( ! did_action( 'init' ) ) {
+    		return false;
+    	}
 
         $job = $this->get_next_action_by_data( $event->hook, $event->args, $event->timestamp );
     
@@ -201,21 +205,22 @@ class Connection
      * @param array     $args      Arguments to pass to the hook's callback function.
      * @return bool True if event successfully unscheduled. False for failure.
      */
-    public function pre_unschedule_event( $pre, $timestamp, $hook, $args )
-	{
+    public function pre_unschedule_event( $pre, $timestamp, $hook, $args ) {
         // Allow other filters to do their thing.
     	if ( $pre !== null ) {
     		return $pre;
     	}
-    
+
     	/**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $hook, $this->get_protected_hooks() ) ) {
             return null;
         }
+
+        if ( ! did_action( 'init' ) ) {
+    		return false;
+    	}
     
         $job = $this->get_next_action_by_data( $hook, $args, $timestamp );
     
@@ -241,8 +246,7 @@ class Connection
      * @return bool On success an integer indicating number of events unscheduled (0 indicates no
      *              events were registered on the hook), false if unscheduling fails.
      */
-    public function pre_unschedule_hook( $pre, $hook )
-	{
+    public function pre_unschedule_hook( $pre, $hook ) {
         // Allow other filters to do their thing.
     	if ( $pre !== null ) {
     		return $pre;
@@ -250,12 +254,14 @@ class Connection
     
     	/**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $hook, $this->get_protected_hooks() ) ) {
             return null;
         }
+
+        if ( ! did_action( 'init' ) ) {
+    		return false;
+    	}
     
     	$this->unschedule_all_actions( $hook, [] );
     
@@ -278,21 +284,22 @@ class Connection
      *                   events were registered with the hook and arguments combination), false if
      *                   unscheduling one or more events fail.
     */
-    public function pre_clear_scheduled_hook( $pre, $hook, $args )
-	{
+    public function pre_clear_scheduled_hook( $pre, $hook, $args ) {
     	// Allow other filters to do their thing.
     	if ( $pre !== null ) {
     		return $pre;
     	}
-    
+
     	/**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $hook, $this->get_protected_hooks() ) ) {
             return null;
         }
+
+        if ( ! did_action( 'init' ) ) {
+    		return false;
+    	}
     
     	$this->unschedule_all_actions( $hook, $args );
     
@@ -313,26 +320,27 @@ class Connection
      * @param int|null  $timestamp Unix timestamp (UTC) of the event. Null to retrieve next scheduled event.
      * @return bool|object The event object. False if the event does not exist.
      */
-    public function pre_get_scheduled_event( $pre, $hook, $args, $timestamp )
-	{
-    	// Allow other filters to do their thing.
+    public function pre_get_scheduled_event( $pre, $hook, $args, $timestamp ) {
+        // Allow other filters to do their thing.
     	if ( $pre !== null ) {
     		return $pre;
     	}
-    
+
         /**
          * Filter to exclude a hook from inclusion in Action Scheduler.
-         *
-         * @param array Array containing each separate argument to pass to the hook's callback function.
          */
         if ( in_array( $hook, $this->get_protected_hooks() ) ) {
             return null;
         }
+
+        if ( ! did_action( 'init' ) ) {
+    		return false;
+    	}
     
         if ( null !== $timestamp && ! is_numeric( $timestamp ) ) {
             return false;
         }
-    
+
         if ( ! $timestamp ) {
             $timestamp = $this->get_next_action( $hook, $args );
         }
@@ -345,17 +353,17 @@ class Connection
             'hook'      => $hook,
             'timestamp' => $timestamp,
             'schedule'  => false,
-            'args'      => $args
+            'args'      => $args,
         );
 
 		$job = $this->get_next_action_by_data( $hook, $args, $timestamp );
 
 		if ( ! empty( $job ) ) {
-			$recurrence = $this->get_recurrence( $job[0] );
-            if ( $recurrence->is_recurring() ) {
-                if ( method_exists( $recurrence, 'get_recurrence' ) ) {
-                    $event->schedule = $this->get_schedule_by_interval( $recurrence->get_recurrence() );
-				    $event->interval = (int) $recurrence->get_recurrence();
+			$schedule = $this->get_schedule( $job[0] );
+            if ( $schedule->is_recurring() ) {
+                if ( method_exists( $schedule, 'get_recurrence' ) ) {
+                    $event->schedule = $this->get_schedule_by_interval( $schedule->get_recurrence() );
+				    $event->interval = (int) $schedule->get_recurrence();
                 }
             }
 		}
@@ -373,21 +381,16 @@ class Connection
      *                        to continue using results from _get_cron_array().
      * @return array Cron jobs ready to be run.
      */
-    function pre_get_ready_cron_jobs( $pre )
-    {
+    public function pre_get_ready_cron_jobs( $pre ) {
         // Allow other filters to do their thing.
         if ( $pre !== null ) {
-            return $pre;
-        }
-
-        if ( ! \ActionScheduler::is_initialized( __FUNCTION__ ) ) {
             return $pre;
         }
 
         $crons = [];
         $proceed = true;
         $wp_crons = _get_cron_array();
-        if ( $wp_crons ) {
+        if ( is_array( $wp_crons ) ) {
             $gmt_time = microtime( true );
             $keys     = array_keys( $wp_crons );
             if ( isset( $keys[0] ) && $keys[0] > $gmt_time ) {
@@ -403,15 +406,17 @@ class Connection
                 }
             }
         }
-    
-        $results = \as_get_scheduled_actions( [
-			'date' 			=> gmdate( 'U' ),
-			'date_compare' 	=> '<=',
-			'group' 		=> 'mwpcac',
-			'status' 		=> \ActionScheduler_Store::STATUS_PENDING,
-			'per_page' 		=> 100,
-			'orderby'  		=> 'none',
-		], 'ids' );
+
+        if ( ! did_action( 'init' ) ) {
+    		return $crons;
+    	}
+
+        $results = $this->get_next_actions( [
+			'date'         => gmdate( 'U' ),
+			'date_compare' => '<=',
+			'per_page'     => 100,
+			'orderby'      => 'none',
+		] );
 
         foreach ( $results as $action_id ) {
             $action = \ActionScheduler::store()->fetch_action( $action_id );
@@ -419,8 +424,8 @@ class Connection
             $hook = $action->get_hook();
             $key = md5( serialize( $action->get_args() ) );
             $value = [
-                'args'      => $action->get_args(),
-                '_job'      => $action,
+                'args' => $action->get_args(),
+                '_job' => $action,
             ];
 
             $timestamp = $action->get_schedule();
@@ -449,5 +454,14 @@ class Connection
         ksort( $crons, SORT_NUMERIC );
         
         return $crons;
+    }
+
+    /**
+     * Register scheduled events which are called before init hook.
+     */
+    public function register_crons() {
+        foreach ( $this->events as $event ) {
+            \wp_schedule_event( $event->timestamp, $event->schedule, $event->hook, $event->args );
+        }
     }
 }

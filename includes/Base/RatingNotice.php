@@ -3,7 +3,7 @@
  * Rating notice.
  *
  * @since      1.0.0
- * @package    Migrate WP Cron to Action Scheduler
+ * @package    WP Cron Action Schedular
  * @subpackage Mwpcac\Base
  * @author     Sayan Datta <iamsayan@protonmail.com>
  */
@@ -25,8 +25,7 @@ class RatingNotice
 	/**
 	 * Register functions.
 	 */
-	public function register()
-	{
+	public function register() {
 		$this->action( 'admin_notices', 'show_notice' );
 		$this->action( 'admin_init', 'dismiss_notice' );
 	}
@@ -34,8 +33,7 @@ class RatingNotice
 	/**
 	 * Show admin notices.
 	 */
-	public function show_notice()
-	{
+	public function show_notice() {
 		// Show notice after 240 hours (10 days) from installed time.
 		if ( $this->calculate_time() > strtotime( '-360 hours' )
 	    	|| '1' === get_option( 'mwpcac_plugin_dismiss_rating_notice' )
@@ -48,7 +46,7 @@ class RatingNotice
         $no_thanks = wp_nonce_url( add_query_arg( 'mwpcac_rating_notice_action', 'no_thanks_rating_true' ), 'no_thanks_rating_true' ); ?>
         
         <div class="notice notice-success">
-            <p><?php esc_html_e( 'Hey, I noticed you\'ve been using Migrate WP Cron to Action Scheduler for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation.', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
+            <p><?php esc_html_e( 'Hey, I noticed you\'ve been using WP Cron Action Schedular for more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a <strong>5-star</strong> rating on WordPress? Just to help us spread the word and boost my motivation.', 'migrate-wp-cron-to-action-scheduler' ); ?></p>
             <p><a href="https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/" target="_blank" class="button button-secondary"><?php esc_html_e( 'Ok, you deserve it', 'migrate-wp-cron-to-action-scheduler' ); ?></a>&nbsp;
             <a href="<?php echo esc_url( $dismiss ); ?>" class="already-did"><strong><?php esc_html_e( 'I already did', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
             <a href="<?php echo esc_url( $no_thanks ); ?>" class="later"><strong><?php esc_html_e( 'Nope&#44; maybe later', 'migrate-wp-cron-to-action-scheduler' ); ?></strong></a>&nbsp;<strong>|</strong>
@@ -60,8 +58,7 @@ class RatingNotice
 	/**
 	 * Dismiss admin notices.
 	 */
-	public function dismiss_notice()
-	{
+	public function dismiss_notice() {
 		if ( get_option( 'mwpcac_plugin_no_thanks_rating_notice' ) === '1' ) {
 			if ( get_option( 'mwpcac_plugin_dismissed_time' ) > strtotime( '-168 hours' ) ) {
 				return;
@@ -93,8 +90,7 @@ class RatingNotice
 	/**
 	 * Calculate install time.
 	 */
-	private function calculate_time()
-	{
+	private function calculate_time() {
 		$installed_time = get_option( 'mwpcac_plugin_installed_time' );
 		
         if ( ! $installed_time ) {

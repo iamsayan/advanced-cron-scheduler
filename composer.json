@@ -1,13 +1,13 @@
 {
-    "name": "sayan/migrate-wp-cron-to-action-scheduler",
-    "description": "The Migrate WP Cron to Action Scheduler plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library",
+    "name": "iamsayan/migrate-wp-cron-to-action-scheduler",
+    "description": "The WP Cron Action Schedular plugin helps to easily migrate Native WordPress Cron to the Action Scheduler Library",
     "type": "wordpress-plugin",
     "license": "GPL-3.0",
     "authors": [
         {
             "name": "Sayan Datta",
             "email": "iamsayan@protonmail.com",
-            "homepage": "http://www.sayandatta.in",
+            "homepage": "http://sayandatta.in",
             "role": "Developer"
         }
     ],
@@ -25,7 +25,18 @@
         "psr-4": {
             "Mwpcac\\": "./includes"
         },
-        "files": ["vendor/woocommerce/action-scheduler/action-scheduler.php"]
+        "files": [ "vendor/woocommerce/action-scheduler/action-scheduler.php" ]
+    },
+    "scripts": {
+        "build": [
+			"composer dump-autoload -o"
+		],
+        "pot" : [
+            "wp i18n make-pot . languages/migrate-wp-cron-to-action-scheduler.pot --exclude=\"/vendor\""
+        ]
+	},
+    "config": {
+        "optimize-autoloader": true
     },
     "require": {
         "woocommerce/action-scheduler": "^3.4"
