@@ -36,10 +36,10 @@ class AdminNotice extends BaseController
 		global $wp_version;
 
 		// Show a warning to sites running PHP < 5.6
-		if ( version_compare( $wp_version, '5.1.0', '<' ) ) {
+		if ( version_compare( $wp_version, '5.2.0', '<' ) ) {
 			deactivate_plugins( $this->plugin );
 			/* translators: %s: Plugin Name */
-			echo '<div class="error"><p>' . sprintf( __( 'Your version of WordPress is below the minimum version of WordPress required by %s plugin. Please upgrade WordPress to 5.1.0 or later.', 'migrate-wp-cron-to-action-scheduler' ), $this->name ) . '</p></div>';
+			echo '<div class="error"><p>' . sprintf( __( 'Your version of WordPress is below the minimum version of WordPress required by %s plugin. Please upgrade WordPress to 5.2.0 or later.', 'migrate-wp-cron-to-action-scheduler' ), $this->name ) . '</p></div>';
 		    return;
 		}
 		

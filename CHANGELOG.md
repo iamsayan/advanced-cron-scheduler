@@ -9,6 +9,7 @@ Release Date: 24th June, 2022
 
 * Updated: Action Scheduler library to v3.4.2.
 * Fixed: Various bugs and PHP errors.
+* Minimum WordPress supported version is now 5.2.0.
 * Tested with WordPress 6.0.
 
 ## 1.0.5
