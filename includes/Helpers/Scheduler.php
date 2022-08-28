@@ -10,6 +10,8 @@
 
 namespace ACSWP\Plugin\Helpers;
 
+use ACSWP\Plugin\Helpers\Hooker;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -17,6 +19,8 @@ defined( 'ABSPATH' ) || exit;
  */
 trait Scheduler
 {
+	use Hooker;
+
 	/**
 	 * Create the recurring action event.
 	 *
@@ -28,7 +32,8 @@ trait Scheduler
 	 * @return string
 	 */
 	protected function set_recurring_action( $timestamp, $interval_in_seconds, $hook, $args = [], $group = 'mwpcac' ) {
-		$action_id = \as_schedule_recurring_action( $timestamp, $interval_in_seconds, $hook, $args, $group ); // @phpstan-ignore-line
+		$unique = (bool) $this->do_filter( 'unique_action', get_option( 'acswp_unique_action' ) );
+		$action_id = \as_schedule_recurring_action( $timestamp, $interval_in_seconds, $hook, $args, $group, $unique ); // @phpstan-ignore-line
 
 		return $action_id;
 	}
@@ -43,7 +48,8 @@ trait Scheduler
 	 * @return string
 	 */
 	protected function set_single_action( $timestamp, $hook, $args = [], $group = 'mwpcac' ) {
-		$action_id = \as_schedule_single_action( $timestamp, $hook, $args, $group ); // @phpstan-ignore-line
+		$unique = (bool) $this->do_filter( 'unique_action', get_option( 'acswp_unique_action' ) );
+		$action_id = \as_schedule_single_action( $timestamp, $hook, $args, $group, $unique ); // @phpstan-ignore-line
 
 		return $action_id;
 	}

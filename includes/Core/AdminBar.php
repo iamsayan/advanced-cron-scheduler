@@ -11,7 +11,6 @@
 namespace ACSWP\Plugin\Core;
 
 use ACSWP\Plugin\Helpers\Hooker;
-use ACSWP\Plugin\Helpers\HelperFunctions;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class AdminBar
 {
-	use HelperFunctions, Hooker;
+	use Hooker;
 
 	/**
 	 * Register functions.
@@ -33,9 +32,9 @@ class AdminBar
 	 * Add admin bar content.
 	 */
 	public function admin_bar( $wp_admin_bar ) {
-		$item = $this->do_filter( 'show_admin_bar_item', true );
+		$item = (bool) $this->do_filter( 'show_admin_bar_item', get_option( 'acswp_admin_bar' ) );
 
-		if ( true === $item ) {
+		if ( $item ) {
 			$args = array(
 				'id'     => 'acswp-link',
 				'parent' => 'top-secondary',

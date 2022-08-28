@@ -15,6 +15,7 @@ return array(
     'ACSWP\\Plugin\\Core\\AdminBar' => $baseDir . '/includes/Core/AdminBar.php',
     'ACSWP\\Plugin\\Core\\Connection' => $baseDir . '/includes/Core/Connection.php',
     'ACSWP\\Plugin\\Core\\MigrateActions' => $baseDir . '/includes/Core/MigrateActions.php',
+    'ACSWP\\Plugin\\Core\\Settings' => $baseDir . '/includes/Core/Settings.php',
     'ACSWP\\Plugin\\Helpers\\HelperFunctions' => $baseDir . '/includes/Helpers/HelperFunctions.php',
     'ACSWP\\Plugin\\Helpers\\Hooker' => $baseDir . '/includes/Helpers/Hooker.php',
     'ACSWP\\Plugin\\Helpers\\Scheduler' => $baseDir . '/includes/Helpers/Scheduler.php',

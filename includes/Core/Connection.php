@@ -10,7 +10,6 @@
 
 namespace ACSWP\Plugin\Core;
 
-use ACSWP\Plugin\Helpers\Hooker;
 use ACSWP\Plugin\Helpers\Scheduler;
 use ACSWP\Plugin\Helpers\HelperFunctions;
 
@@ -21,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Connection
 {
-	use Hooker, HelperFunctions, Scheduler;
+	use HelperFunctions, Scheduler;
 
     /**
 	 * List of Events.
@@ -41,7 +40,7 @@ class Connection
 		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 10, 3 );
 		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 10, 4 );
         $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs' );
-        $this->action( 'init', 'register_crons' );
+        $this->action( 'init', 'register_crons', 10 );
 	}
 
 	/**
@@ -72,7 +71,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
             $this->events[ $event->hook ] = $event;
 
     		return false;
@@ -168,7 +167,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return false;
     	}
 
@@ -218,7 +217,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return false;
     	}
     
@@ -259,7 +258,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return false;
     	}
     
@@ -297,7 +296,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return false;
     	}
     
@@ -333,7 +332,7 @@ class Connection
             return null;
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return false;
     	}
     
@@ -407,7 +406,7 @@ class Connection
             }
         }
 
-        if ( ! did_action( 'init' ) ) {
+        if ( ! $this->is_as_initialized() ) {
     		return $crons;
     	}
 
