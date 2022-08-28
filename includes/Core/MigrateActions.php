@@ -10,7 +10,6 @@
 
 namespace ACSWP\Plugin\Core;
 
-use ACSWP\Plugin\Helpers\Hooker;
 use ACSWP\Plugin\Helpers\Scheduler;
 use ACSWP\Plugin\Helpers\HelperFunctions;
 
@@ -21,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class MigrateActions
 {
-	use Hooker, HelperFunctions, Scheduler;
+	use HelperFunctions, Scheduler;
 
 	/**
 	 * Register functions.

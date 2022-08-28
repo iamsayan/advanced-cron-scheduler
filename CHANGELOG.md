@@ -4,6 +4,13 @@ If you like Advanced Cron Scheduler plugin, please take a moment to [give a 5-st
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.8
+Release Date: 28th August, 2022
+
+* Added: Settings to toggle settings under Settings > General.
+* Updated: Action Scheduler library to v3.5.0.
+* Improved: Cron Logic.
+
 ## 1.0.7
 Release Date: 24th June, 2022
 

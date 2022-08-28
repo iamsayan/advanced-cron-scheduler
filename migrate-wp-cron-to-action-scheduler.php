@@ -3,7 +3,7 @@
  * Plugin Name: Advanced Cron Scheduler
  * Plugin URI: https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/
  * Description: The Advanced Cron Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: Sayan Datta
  * Author URI: https://sayandatta.in
  * License: GPLv3
@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! defined( 'ACS_PLUGIN_VERSION' ) ) {
-	define( 'ACS_PLUGIN_VERSION', '1.0.7' );
+if ( ! defined( 'ACSWP_PLUGIN_VERSION' ) ) {
+	define( 'ACSWP_PLUGIN_VERSION', '1.0.8' );
 }
 
 // Require once the Composer Autoload

@@ -54,7 +54,7 @@ trait HelperFunctions
 		$interval = (int) $interval;
     	$schedules = $this->get_schedules_by_interval();
 
-    	if ( ! empty ( $schedules ) && isset( $schedules[ $interval ] ) ) {
+    	if ( ! empty( $schedules ) && isset( $schedules[ $interval ] ) ) {
     		return $schedules[ $interval ];
     	}
     
@@ -77,7 +77,7 @@ trait HelperFunctions
      * @return int|bool The timestamp for the next occurrence of a pending scheduled action, true for an async or in-progress action or false if there is no matching action.
      */
     protected function get_schedule( $job_id ) {
-    	if ( ! \ActionScheduler::is_initialized( __FUNCTION__ ) ) {
+    	if ( ! \ActionScheduler::is_initialized() ) {
     		return false;
     	}
     
@@ -97,7 +97,7 @@ trait HelperFunctions
      * @return string|null The scheduled action ID if a scheduled action was found, or null if no matching action found.
      */
     protected function cancel_scheduled_action( $job_id ) {
-    	if ( ! \ActionScheduler::is_initialized( __FUNCTION__ ) ) {
+    	if ( ! \ActionScheduler::is_initialized() ) {
     		return false;
     	}
     
@@ -106,11 +106,24 @@ trait HelperFunctions
     	return $job_id;
     }
 
+    /**
+     * Check if Action Scheduler is actually initiated or not.
+     * 
+     * @since 1.0.8
+     */
+    protected function is_as_initialized() {
+    	if ( ! did_action( 'init' ) || ! \ActionScheduler::is_initialized() ) {
+    		return false;
+    	}
+    
+    	return true;
+    }
+
 	/**
      * Get Default WordPress Native Hooks.
      */
     protected function get_protected_hooks() {
-    	$hooks = $this->do_filter( 'protected_hooks', [
+    	$hooks = (array) $this->do_filter( 'protected_hooks', [
             'wp_privacy_delete_old_export_files',
             'wp_update_user_counts',
 			'wp_version_check',
@@ -123,11 +136,10 @@ trait HelperFunctions
 			'delete_expired_transients',
 			'wp_scheduled_auto_draft_delete',
 			'recovery_mode_clean_expired_keys',
-            'fuck',
         ] );
     
         array_push( $hooks, 'action_scheduler_run_queue' );
-    
-        return array_unique( array_merge( $this->do_filter( 'exclude_event_hooks', [] ), $hooks ) );
+
+        return array_unique( $hooks );
     }
 }

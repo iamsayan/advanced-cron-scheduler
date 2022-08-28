@@ -34,6 +34,7 @@ class ComposerStaticInit89768520ea85c32bebf6f7d5c391bf98
         'ACSWP\\Plugin\\Core\\AdminBar' => __DIR__ . '/../..' . '/includes/Core/AdminBar.php',
         'ACSWP\\Plugin\\Core\\Connection' => __DIR__ . '/../..' . '/includes/Core/Connection.php',
         'ACSWP\\Plugin\\Core\\MigrateActions' => __DIR__ . '/../..' . '/includes/Core/MigrateActions.php',
+        'ACSWP\\Plugin\\Core\\Settings' => __DIR__ . '/../..' . '/includes/Core/Settings.php',
         'ACSWP\\Plugin\\Helpers\\HelperFunctions' => __DIR__ . '/../..' . '/includes/Helpers/HelperFunctions.php',
         'ACSWP\\Plugin\\Helpers\\Hooker' => __DIR__ . '/../..' . '/includes/Helpers/Hooker.php',
         'ACSWP\\Plugin\\Helpers\\Scheduler' => __DIR__ . '/../..' . '/includes/Helpers/Scheduler.php',

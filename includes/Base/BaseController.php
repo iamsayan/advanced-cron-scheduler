@@ -64,8 +64,6 @@ class BaseController
 		$this->plugin_path = plugin_dir_path( $this->dirname_r( __FILE__, 2 ) );
 		$this->plugin_url = plugin_dir_url( $this->dirname_r( __FILE__, 2 ) );
 		$this->plugin = plugin_basename( $this->dirname_r( __FILE__, 3 ) ) . '/migrate-wp-cron-to-action-scheduler.php';
-		$this->version = ACS_PLUGIN_VERSION;
-		$this->name = 'Advanced Cron Scheduler';
 	}
 
 	/**
@@ -73,9 +71,9 @@ class BaseController
 	 */
 	private function dirname_r( $path, $count = 1 ) {
 		if ( $count > 1 ) {
-		   return dirname( $this->dirname_r( $path, --$count ) );
+			return dirname( $this->dirname_r( $path, --$count ) );
 		} else {
-		   return dirname( $path );
+			return dirname( $path );
 		}
 	}
 }

@@ -28,6 +28,7 @@ final class Loader
 			Core\Connection::class,
 			Core\MigrateActions::class,
 			Core\AdminBar::class,
+			Core\Settings::class,
 		];
 
 		return $services;
