@@ -95,6 +95,11 @@ Yes, our plugins work independently of themes you are using. As long as your web
 
 If you like Advanced Cron Scheduler, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
 
+= 1.0.9 =
+Release Date:
+
+* Updated: Action Scheduler library to v3.5.1.
+
 = 1.0.8 =
 Release Date: 28th August, 2022
 
