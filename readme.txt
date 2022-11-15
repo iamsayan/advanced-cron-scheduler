@@ -2,8 +2,8 @@
 Contributors: Infosatech
 Tags: scheduler, cron, wp cron, debug, cron manager
 Requires at least: 5.2
-Tested up to: 6.0
-Stable tag: 1.0.8
+Tested up to: 6.1
+Stable tag: 1.0.9
 Requires PHP: 5.6
 Donate link: https://www.paypal.me/iamsayan/
 License: GPLv3
