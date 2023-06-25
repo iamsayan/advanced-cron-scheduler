@@ -40,7 +40,8 @@ class Connection
 		$this->filter( 'pre_clear_scheduled_hook', 'pre_clear_scheduled_hook', 10, 3 );
 		$this->filter( 'pre_get_scheduled_event', 'pre_get_scheduled_event', 10, 4 );
         $this->filter( 'pre_get_ready_cron_jobs', 'pre_get_ready_cron_jobs' );
-        $this->action( 'init', 'register_crons', 10 );
+        $this->action( 'action_scheduler_init', 'register_crons' ); 
+        $this->action( 'shutdown', 'clear_crons' ); 
 	}
 
 	/**
@@ -421,7 +422,7 @@ class Connection
             $action = \ActionScheduler::store()->fetch_action( $action_id );
 
             $hook = $action->get_hook();
-            $key = md5( serialize( $action->get_args() ) );
+            $key = md5( serialize( $action->get_args() ) ); // PHPCS:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
             $value = [
                 'args' => $action->get_args(),
                 '_job' => $action,
@@ -462,5 +463,12 @@ class Connection
         foreach ( $this->events as $event ) {
             \wp_schedule_event( $event->timestamp, $event->schedule, $event->hook, $event->args );
         }
+    }
+
+    /**
+     * Clean crons
+     */
+    public function clear_crons() {
+        $this->events = [];
     }
 }

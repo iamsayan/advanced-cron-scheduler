@@ -34,8 +34,9 @@ class Actions extends BaseController
 	 * Register settings link.
 	 */
 	public function settings_link( $links ) {
+		$links[] = '<a href="' . admin_url( 'options-general.php#acswp-settings' ) . '">' . __( 'Settings', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
 		$links[] = '<a href="' . admin_url( 'tools.php?page=action-scheduler' ) . '">' . __( 'Action Scheduler', 'migrate-wp-cron-to-action-scheduler' ) . '</a>';
-
+		
 		return $links;
 	}
 

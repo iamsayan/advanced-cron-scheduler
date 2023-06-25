@@ -112,7 +112,7 @@ trait HelperFunctions
      * @since 1.0.8
      */
     protected function is_as_initialized() {
-    	if ( ! did_action( 'init' ) || ! \ActionScheduler::is_initialized() ) {
+    	if ( ! did_action( 'action_scheduler_init' ) || ! \ActionScheduler::is_initialized() ) {
     		return false;
     	}
     

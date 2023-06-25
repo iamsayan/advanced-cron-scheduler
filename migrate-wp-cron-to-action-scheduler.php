@@ -3,9 +3,9 @@
  * Plugin Name: Advanced Cron Scheduler
  * Plugin URI: https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/
  * Description: The Advanced Cron Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library.
- * Version: 1.0.9
+ * Version: 1.1.0
  * Author: Sayan Datta
- * Author URI: https://sayandatta.in
+ * Author URI: https://www.sayandatta.co.in
  * License: GPLv3
  * 
  * Advanced Cron Scheduler is free software: you can redistribute it and/or modify
@@ -30,47 +30,190 @@
  */
 
 // If this file is called firectly, abort!!!
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-if ( ! defined( 'ACSWP_PLUGIN_VERSION' ) ) {
-	define( 'ACSWP_PLUGIN_VERSION', '1.0.9' );
-}
-
-// Require once the Composer Autoload
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
- * The code that runs during plugin activation
+ * ACSWP class.
+ *
+ * @class Main class of the plugin.
  */
-if ( ! function_exists( 'acswp_plugin_activation' ) ) {
-	function acswp_plugin_activation() {
-		ACSWP\Plugin\Base\Activate::activate();
+final class ACSWP {
+
+	/**
+	 * Plugin version.
+	 *
+	 * @var string
+	 */
+	public $version = '1.1.0';
+
+	/**
+	 * Minimum version of WordPress required to run ACSWP.
+	 *
+	 * @var string
+	 */
+	private $wordpress_version = '5.2';
+
+	/**
+	 * Minimum version of PHP required to run ACSWP.
+	 *
+	 * @var string
+	 */
+	private $php_version = '5.6';
+
+	/**
+	 * Hold install error messages.
+	 *
+	 * @var bool
+	 */
+	private $messages = [];
+
+	/**
+	 * The single instance of the class.
+	 *
+	 * @var ACSWP
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Retrieve main ACSWP instance.
+	 *
+	 * Ensure only one instance is loaded or can be loaded.
+	 *
+	 * @see acswp()
+	 * @return ACSWP
+	 */
+	public static function get() {
+		if ( is_null( self::$instance ) && ! ( self::$instance instanceof ACSWP ) ) {
+			self::$instance = new ACSWP();
+			self::$instance->setup();
+		}
+
+		return self::$instance;
 	}
-}
-register_activation_hook( __FILE__, 'acswp_plugin_activation' );
 
-/**
- * The code that runs during plugin deactivation
- */
-if ( ! function_exists( 'acswp_plugin_deactivation' ) ) {
-	function acswp_plugin_deactivation() {
-		ACSWP\Plugin\Base\Deactivate::deactivate();
+	/**
+	 * Instantiate the plugin.
+	 */
+	private function setup() {
+		// Define plugin constants.
+		$this->define_constants();
+
+		if ( ! $this->is_requirements_meet() ) {
+			return;
+		}
+
+		// Include required files.
+		$this->includes();
+
+		// Instantiate services.
+		$this->instantiate();
+
+		// Loaded action.
+		do_action( 'acswp/loaded' );
 	}
-}
-register_deactivation_hook( __FILE__, 'acswp_plugin_deactivation' );
 
-/**
- * Initialize all the core classes of the plugin
- */
-if ( ! function_exists( 'acswp_plugin_init' ) ) {
-	function acswp_plugin_init() {
-		if ( class_exists( 'ACSWP\Plugin\\Loader' ) ) {
-			ACSWP\Plugin\Loader::register_services();
+	/**
+	 * Check that the WordPress and PHP setup meets the plugin requirements.
+	 *
+	 * @return bool
+	 */
+	private function is_requirements_meet() {
+
+		// Check WordPress version.
+		if ( version_compare( get_bloginfo( 'version' ), $this->wordpress_version, '<' ) ) {
+			/* translators: WordPress Version */
+			$this->messages[] = sprintf( esc_html__( 'You are using the outdated WordPress, please update it to version %s or higher.', 'migrate-wp-cron-to-action-scheduler' ), $this->wordpress_version );
+		}
+
+		// Check PHP version.
+		if ( version_compare( phpversion(), $this->php_version, '<' ) ) {
+			/* translators: PHP Version */
+			$this->messages[] = sprintf( esc_html__( 'Advanced Cron Scheduler for WordPress requires PHP version %s or above. Please update PHP to run this plugin.', 'migrate-wp-cron-to-action-scheduler' ), $this->php_version );
+		}
+
+		if ( empty( $this->messages ) ) {
+			return true;
+		}
+
+		// Auto-deactivate plugin.
+		add_action( 'admin_init', [ $this, 'auto_deactivate' ] );
+		add_action( 'admin_notices', [ $this, 'activation_error' ] );
+
+		return false;
+	}
+
+	/**
+	 * Auto-deactivate plugin if requirements are not met, and display a notice.
+	 */
+	public function auto_deactivate() {
+		deactivate_plugins( ACSWP_BASENAME );
+		if ( isset( $_GET['activate'] ) ) { // phpcs:ignore
+			unset( $_GET['activate'] ); // phpcs:ignore
 		}
 	}
+
+	/**
+	 * Error notice on plugin activation.
+	 */
+	public function activation_error() {
+		?>
+		<div class="notice acswp-notice notice-error">
+			<p>
+				<?php echo join( '<br>', $this->messages ); // phpcs:ignore ?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Define the plugin constants.
+	 */
+	private function define_constants() {
+		define( 'ACSWP_VERSION', $this->version );
+		define( 'ACSWP_FILE', __FILE__ );
+		define( 'ACSWP_PATH', dirname( ACSWP_FILE ) . '/' );
+		define( 'ACSWP_URL', plugins_url( '', ACSWP_FILE ) . '/' );
+		define( 'ACSWP_BASENAME', plugin_basename( ACSWP_FILE ) );
+	}
+
+	/**
+	 * Include the required files.
+	 */
+	private function includes() {
+		include dirname( __FILE__ ) . '/vendor/autoload.php';
+	}
+
+	/**
+	 * Instantiate services.
+	 */
+	private function instantiate() {
+		// Activation hook.
+		register_activation_hook( ACSWP_FILE, 
+			function () {
+				ACSWP\Plugin\Base\Activate::activate();
+			} 
+		);
+
+		// Deactivation hook.
+		register_deactivation_hook( ACSWP_FILE, 
+			function () {
+				ACSWP\Plugin\Base\Deactivate::deactivate();
+			} 
+		);
+
+		// Init ACSWP Classes.
+		ACSWP\Plugin\Loader::register_services();
+	}
 }
-acswp_plugin_init();
+
+/**
+ * Returns the main instance of ACSWP to prevent the need to use globals.
+ *
+ * @return ACSWP
+ */
+function acswp() {
+	return ACSWP::get();
+}
+
+// Start it.
+acswp();
