@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Admin Bar class.
  */
-class AdminBar
+class Admin
 {
 	use Hooker;
 
@@ -26,6 +26,7 @@ class AdminBar
 	 */
 	public function register() {
 		$this->action( 'admin_bar_menu', 'admin_bar' );
+		$this->filter( 'action_scheduler_check_pastdue_actions', 'past_due_actions', 100 );
 	}
 
 	/**
@@ -44,5 +45,14 @@ class AdminBar
 		
 			$wp_admin_bar->add_node( $args );
 		}
+	}
+
+	/**
+	 * Add admin bar content.
+	 */
+	public function past_due_actions( $check ) {
+		$is_disabled = (bool) get_option( 'acswp_disable_past_due_checking' );
+		
+		return $is_disabled ? false : $check;
 	}
 }

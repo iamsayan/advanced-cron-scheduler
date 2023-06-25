@@ -74,7 +74,7 @@ class MigrateActions
         }
 
         $statement = $wpdb->prepare( "SELECT a.action_id, a.hook, a.scheduled_date_gmt, a.args, g.slug AS `group` FROM {$wpdb->actionscheduler_actions} a LEFT JOIN {$wpdb->actionscheduler_groups} g ON a.group_id=g.group_id WHERE a.status=%s AND g.slug=%s", 'pending', 'mwpcac' );
-        $values = $wpdb->get_results( $statement, ARRAY_A );
+        $values = $wpdb->get_results( $statement, ARRAY_A ); // PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
         foreach ( $values as $value ) {
             $this->generate_wp_cron( strtotime( $value['scheduled_date_gmt'] ), $value['hook'], json_decode( $value['args'], true ) );
             $this->cancel_scheduled_action( $value['action_id'] );
@@ -96,7 +96,7 @@ class MigrateActions
         }
     
         // get keys
-        $key = md5( serialize( $args ) );
+        $key = md5( serialize( $args ) ); // PHPCS:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
         
         $crons[ $timestamp ][ $hook ][ $key ] = [
             'schedule' => false,
@@ -121,7 +121,7 @@ class MigrateActions
         $crons = _get_cron_array();
     
         // get keys
-        $key = md5( serialize( $args ) );
+        $key = md5( serialize( $args ) ); // PHPCS:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
         
         unset( $crons[ $timestamp ][ $hook ][ $key ] );
         

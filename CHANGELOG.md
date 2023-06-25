@@ -4,6 +4,14 @@ If you like Advanced Cron Scheduler plugin, please take a moment to [give a 5-st
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.0
+Release Date: 25th June, 2023
+
+* Added: Option to disable check for past-due actions.
+* Tweak: Changed `init` hook to `action_scheduler_init`.
+* Updated: Action Scheduler library to v3.6.1.
+* Tested up to WordPress 6.3.
+
 ## 1.0.9
 Release Date: 15th November, 2022
 

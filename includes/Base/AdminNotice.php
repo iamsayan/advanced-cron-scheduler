@@ -34,36 +34,12 @@ class AdminNotice extends BaseController
 	 * Show internal admin notices.
 	 */
 	public function notice() {
-		global $wp_version;
-
-		// Show a warning to sites running PHP < 5.6
-		if ( version_compare( $wp_version, '5.2.0', '<' ) ) {
-			deactivate_plugins( $this->plugin );
-			if ( isset( $_GET['activate'] ) ) { // phpcs:ignore
-				unset( $_GET['activate'] ); // phpcs:ignore
-			}
-			/* translators: %s: Plugin Name */
-			echo '<div class="error"><p>' . sprintf( esc_html__( 'Your version of WordPress is below the minimum version of WordPress required by %s plugin. Please upgrade WordPress to 5.2.0 or later.', 'migrate-wp-cron-to-action-scheduler' ), esc_html( $this->name ) ) . '</p></div>';
-		    return;
-		}
-		
-		// Show a warning to sites running PHP < 5.6
-		if ( version_compare( PHP_VERSION, '5.6', '<' ) ) {
-			deactivate_plugins( $this->plugin );
-			if ( isset( $_GET['activate'] ) ) { // phpcs:ignore
-				unset( $_GET['activate'] ); // phpcs:ignore
-			}
-			/* translators: %s: Plugin Name */
-			echo '<div class="error"><p>' . sprintf( esc_html__( 'Your version of PHP is below the minimum version of PHP required by %s plugin. Please contact your host and request that your version be upgraded to 5.6 or later.', 'migrate-wp-cron-to-action-scheduler' ), esc_html( $this->name ) ) . '</p></div>';
-			return;
-		}
-
 		// Check transient, if available display notice
 		if ( get_transient( 'acswp-show-notice-on-activation' ) !== false ) { ?>
 			<div class="notice notice-success">
 				<p><strong><?php
 				/* translators: %s: Plugin Name */ 
-				printf( esc_html__( 'Thanks for installing %1$s v%2$s plugin. Click <a href="%3$s">here</a> to view Action Scheduler tasks.', 'migrate-wp-cron-to-action-scheduler' ), 'Advanced Cron Scheduler', esc_html( ACSWP_PLUGIN_VERSION ), esc_url( admin_url( 'tools.php?page=action-scheduler' ) ) ); ?></strong></p>
+				printf( wp_kses_post( __( 'Thanks for installing %1$s v%2$s plugin. Click <a href="%3$s">here</a> to view Action Scheduler tasks.', 'migrate-wp-cron-to-action-scheduler' ) ), 'Advanced Cron Scheduler', esc_html( ACSWP_VERSION ), esc_url( admin_url( 'tools.php?page=action-scheduler' ) ) ); ?></strong></p>
 			</div> <?php
 		    delete_transient( 'acswp-show-notice-on-activation' );
 		}

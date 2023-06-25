@@ -31,7 +31,7 @@ msgid "Sayan Datta"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://sayandatta.in"
+msgid "https://www.sayandatta.co.in"
 msgstr ""
 
 #: includes/Base/Actions.php:37
