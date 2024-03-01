@@ -1,10 +1,10 @@
 === Action Scheduler ===
 Contributors: Automattic, wpmuguru, claudiosanches, peterfabian1000, vedjain, jamosova, obliviousharmony, konamiman, sadowski, royho, barryhughes-1
 Tags: scheduler, cron
-Requires at least: 5.2
-Tested up to: 6.0
-Stable tag: 3.6.1
+Stable tag: 3.7.2
 License: GPLv3
+Requires at least: 6.2
+Tested up to: 6.4
 Requires PHP: 5.6
 
 Action Scheduler - Job Queue for WordPress
@@ -46,6 +46,35 @@ Action Scheduler is developed and maintained by [Automattic](http://automattic.c
 Collaboration is cool. We'd love to work with you to improve Action Scheduler. [Pull Requests](https://github.com/woocommerce/action-scheduler/pulls) welcome.
 
 == Changelog ==
+
+= 3.7.2 - 2024-02-14 =
+* No longer user variables in `_n()` translation function.
+
+= 3.7.1 - 2023-12-13 =
+* update semver to 5.7.2 because of a security vulnerability in 5.7.1.
+
+= 3.7.0 - 2023-11-20 =
+* Important: starting with this release, Action Scheduler follows an L-2 version policy (WordPress, and consequently PHP).
+* Add extended indexes for hook_status_scheduled_date_gmt and status_sheduled_date_gmt.
+* Catch and log exceptions thrown when actions can't be created, e.g. under a corrupt database schema.
+* Tweak - WP 6.4 compatibility.
+* Update unit tests for upcoming dependency version policy.
+* make sure hook action_scheduler_failed_execution can access original exception object.
+* mention dependency version policy in usage.md.
+
+= 3.6.4 - 2023-10-11 =
+* Performance improvements when bulk cancelling actions.
+* Dev-related fixes.
+
+= 3.6.3 - 2023-09-13 =
+* Use `_doing_it_wrong` in initialization check.
+
+= 3.6.2 - 2023-08-09 =
+* Add guidance about passing arguments.
+* Atomic option locking.
+* Improve bulk delete handling.
+* Include database error in the exception message.
+* Tweak - WP 6.3 compatibility.
 
 = 3.6.1 - 2023-06-14 =
 * Document new optional `$priority` arg for various API functions.
