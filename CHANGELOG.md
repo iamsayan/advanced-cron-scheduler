@@ -4,6 +4,12 @@ If you like Advanced Cron Scheduler plugin, please take a moment to [give a 5-st
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.1
+Release Date: 1st March, 2024
+
+* Updated: Action Scheduler library to v3.7.21.
+* Tested up to WordPress 6.4.
+
 ## 1.1.0
 Release Date: 25th June, 2023
 
