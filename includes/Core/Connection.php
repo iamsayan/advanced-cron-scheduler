@@ -356,15 +356,15 @@ class Connection
             'args'      => $args,
         );
 
-		$job = $this->get_next_action_by_data( $hook, $args, $timestamp );
+		$action = $this->get_next_action_by_data( $hook, $args, $timestamp );
 
-		if ( ! empty( $job ) ) {
-			$schedule = $this->get_schedule( $job[0] );
-            if ( $schedule->is_recurring() ) {
-                if ( method_exists( $schedule, 'get_recurrence' ) ) {
-                    $event->schedule = $this->get_schedule_by_interval( $schedule->get_recurrence() );
-				    $event->interval = (int) $schedule->get_recurrence();
-                }
+		if ( ! empty( $action ) ) {
+			$schedule = $this->get_schedule( $action[0] );
+
+            if ( $schedule && $schedule->is_recurring() && method_exists( $schedule, 'get_recurrence' ) ) {
+                $recurrence      = (int) $schedule->get_recurrence();
+                $event->schedule = $this->get_schedule_by_interval( $recurrence );
+                $event->interval = $recurrence;
             }
 		}
         
@@ -398,11 +398,11 @@ class Connection
             }
 
             if ( $proceed ) {
-                foreach ( $wp_crons as $timestamp => $cronhooks ) {
+                foreach ( $wp_crons as $timestamp => $cron_hooks ) {
                     if ( $timestamp > $gmt_time ) {
                         break;
                     }
-                    $crons[ $timestamp ] = $cronhooks;
+                    $crons[ $timestamp ] = $cron_hooks;
                 }
             }
         }
@@ -419,22 +419,26 @@ class Connection
 		] );
 
         foreach ( $results as $action_id ) {
-            $action = \ActionScheduler::store()->fetch_action( $action_id );
+            $action   = $this->get_action( $action_id );
+            if ( ! $action ) {
+                continue;
+            }
 
-            $hook = $action->get_hook();
-            $key = md5( serialize( $action->get_args() ) ); // PHPCS:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
-            $value = [
+            $schedule = $action->get_schedule();
+            $hook     = $action->get_hook();
+            $key      = md5( serialize( $action->get_args() ) ); // PHPCS:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+            $value    = [
                 'args' => $action->get_args(),
                 '_job' => $action,
             ];
 
-            $timestamp = $action->get_schedule();
-            if ( method_exists( $timestamp, 'get_recurrence' ) ) {
-                $value['schedule'] = $this->get_schedule_by_interval( $timestamp->get_recurrence() );
-                $value['interval'] = (int) $timestamp->get_recurrence();
+            if ( $schedule && method_exists( $schedule, 'get_recurrence' ) ) {
+                $recurrence        = (int) $schedule->get_recurrence();
+                $value['schedule'] = $this->get_schedule_by_interval( $recurrence );
+                $value['interval'] = $recurrence;
             }
 
-            $next = $timestamp->get_date();
+            $next = $schedule->get_date();
             if ( $next ) {
                 $timestamp = $next->getTimestamp();
             } else {

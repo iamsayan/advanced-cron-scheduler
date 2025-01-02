@@ -29,7 +29,8 @@
     },
     "scripts": {
         "build": [
-			"composer dump-autoload"
+			"composer dump-autoload",
+            "composer pot"
 		],
         "pot" : [
             "wp i18n make-pot . languages/migrate-wp-cron-to-action-scheduler.pot --exclude=\"/vendor\""

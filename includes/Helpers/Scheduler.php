@@ -107,7 +107,7 @@ trait Scheduler
 	 * Get next scheduled actions
 	 *
 	 * @param  array   $args   Parameters.
-	 * @return null|string
+	 * @return array
 	 */
 	protected function get_next_actions( $args, $return_format = 'ids' ) {
 		$args = \wp_parse_args( $args, [
@@ -128,7 +128,7 @@ trait Scheduler
 	 * @param  string  $hook   Action Hook.
 	 * @param  array   $args   Parameters.
 	 * @param  string  $group  Group Name.
-	 * @return null|string
+	 * @return array
 	 */
 	protected function get_next_action_by_data( $hook, $args, $timestamp ) {
 		$actions = $this->get_next_actions( [
