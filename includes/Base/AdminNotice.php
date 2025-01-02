@@ -116,16 +116,17 @@ class AdminNotice extends BaseController
 		$notice_action = join( '_', $notice );
 
 		if ( 'dismiss' === $notice_action ) {
-			update_option( 'acswp_plugin_dismiss_' . $notice_type . '_notice', '1' );
+			update_option( 'acswp_plugin_dismiss_' . $notice_type . '_notice', '1', false );
 		}
 	
 		if ( 'no_thanks' === $notice_action ) {
-			update_option( 'acswp_plugin_no_thanks_' . $notice_type . '_notice', '1' );
-			update_option( 'acswp_plugin_dismiss_' . $notice_type . '_notice', '1' );
+			update_option( 'acswp_plugin_no_thanks_' . $notice_type . '_notice', '1', false );
+			update_option( 'acswp_plugin_dismiss_' . $notice_type . '_notice', '1', false );
+			
 			if ( 'donate' === $notice_type ) {
-				update_option( 'acswp_plugin_dismissed_time_donate', time() );
+				update_option( 'acswp_plugin_dismissed_time_donate', time(), false );
 			} else {
-				update_option( 'acswp_plugin_dismissed_time', time() );
+				update_option( 'acswp_plugin_dismissed_time', time(), false );
 			}
 		}
 	
@@ -141,7 +142,7 @@ class AdminNotice extends BaseController
 		
 		if ( ! $installed_time ) {
             $installed_time = time();
-            update_option( 'acswp_plugin_installed_time', $installed_time );
+            update_option( 'acswp_plugin_installed_time', $installed_time, false );
 		}
 		
         return $installed_time;

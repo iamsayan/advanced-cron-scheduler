@@ -51,7 +51,7 @@ trait HelperFunctions
     		return false;
     	}
     
-		$interval = (int) $interval;
+		$interval  = (int) $interval;
     	$schedules = $this->get_schedules_by_interval();
 
     	if ( ! empty( $schedules ) && isset( $schedules[ $interval ] ) ) {
@@ -61,49 +61,55 @@ trait HelperFunctions
     	return false;
     }
 
-	/**
-     * Check if there is an existing action in the queue with a given hook, args and group combination.
+    /**
+     * Get the action object for a specific action by its ID.
      *
-     * An action in the queue could be pending, in-progress or async. If the is pending for a time in
-     * future, its scheduled date will be returned as a timestamp. If it is currently being run, or an
-     * async action sitting in the queue waiting to be processed, in which case boolean true will be
-     * returned. Or there may be no async, in-progress or pending action for this hook, in which case,
-     * boolean false will be the return value.
+     * Retrieves the action object for an action from the Action Scheduler store.
+     * Returns false if Action Scheduler is not initialized or if the action doesn't exist.
      *
-     * @param string $hook
-     * @param array $args
-     * @param string $group
-     *
-     * @return int|bool The timestamp for the next occurrence of a pending scheduled action, true for an async or in-progress action or false if there is no matching action.
+     * @param int $action_id The ID of the scheduled action
+     * @return object|false Action object if found, false otherwise
      */
-    protected function get_schedule( $job_id ) {
+    protected function get_action( $action_id ) {
     	if ( ! \ActionScheduler::is_initialized() ) {
     		return false;
     	}
     
-    	$job = \ActionScheduler::store()->fetch_action( $job_id );
-		$schedule = $job->get_schedule();
+    	return \ActionScheduler::store()->fetch_action( $action_id );
+    }
 
-    	return $schedule;
+	/**
+     * Get the schedule object for a specific action by its ID.
+     *
+     * Retrieves the schedule object for an action from the Action Scheduler store.
+     * Returns false if Action Scheduler is not initialized or if the action doesn't exist.
+     *
+     * @param int $action_id The ID of the scheduled action
+     * @return object|false Schedule object if found, false otherwise
+     */
+    protected function get_schedule( $action_id ) {
+        $action = $this->get_action( $action_id );
+        if ( ! $action ) {
+            return false;
+        }
+
+        return $action->get_schedule();
     }
 
 	/**
      * Cancel the next occurrence of a scheduled action by action id.
      *
-     * @param string $hook The hook that the job will trigger.
-     * @param array $args Args that would have been passed to the job.
-     * @param string $group The group the job is assigned to.
-     *
-     * @return string|null The scheduled action ID if a scheduled action was found, or null if no matching action found.
+     * @param int $action_id The ID of the scheduled action
+     * @return int|null|false The scheduled action ID if a scheduled action was found, or false if no matching action found.
      */
-    protected function cancel_scheduled_action( $job_id ) {
+    protected function cancel_scheduled_action( $action_id ) {
     	if ( ! \ActionScheduler::is_initialized() ) {
     		return false;
     	}
     
-    	\ActionScheduler::store()->cancel_action( $job_id );
+    	\ActionScheduler::store()->cancel_action( $action_id );
     
-    	return $job_id;
+    	return $action_id;
     }
 
     /**
@@ -142,4 +148,20 @@ trait HelperFunctions
 
         return array_unique( $hooks );
     }
+
+    /**
+	 * Get settings.
+	 */
+	protected function get_settings( $key, $default = null ) {
+		$settings = get_option( 'acswp_settings', [] );
+        if ( empty( $settings ) || ! is_array( $settings ) ) {
+            $settings = [];
+        }
+
+        if ( ! empty( $settings[ $key ] ) ) {
+            return $settings[ $key ];
+        }
+
+		return $default;
+	}
 }

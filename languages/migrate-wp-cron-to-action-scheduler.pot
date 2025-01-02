@@ -1,111 +1,198 @@
-# Copyright (C) 2022 Sayan Datta
+# Copyright (C) 2025 Sayan Datta
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced Cron Scheduler 1.0.9\n"
+"Project-Id-Version: Advanced Cron Scheduler 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-15T06:49:36+00:00\n"
+"POT-Creation-Date: 2025-01-02T17:18:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: migrate-wp-cron-to-action-scheduler\n"
 
 #. Plugin Name of the plugin
+#: migrate-wp-cron-to-action-scheduler.php
+#: includes/Core/Settings.php:54
 msgid "Advanced Cron Scheduler"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: migrate-wp-cron-to-action-scheduler.php
 msgid "https://wordpress.org/plugins/migrate-wp-cron-to-action-scheduler/"
 msgstr ""
 
 #. Description of the plugin
+#: migrate-wp-cron-to-action-scheduler.php
 msgid "The Advanced Cron Scheduler plugin helps to easily replace or migrate Native WordPress Cron to the Action Scheduler Library."
 msgstr ""
 
 #. Author of the plugin
+#: migrate-wp-cron-to-action-scheduler.php
 msgid "Sayan Datta"
 msgstr ""
 
 #. Author URI of the plugin
+#: migrate-wp-cron-to-action-scheduler.php
 msgid "https://www.sayandatta.co.in"
 msgstr ""
 
 #: includes/Base/Actions.php:37
+#: includes/Core/Settings.php:100
+msgid "Settings"
+msgstr ""
+
+#: includes/Base/Actions.php:38
 msgid "Action Scheduler"
 msgstr ""
 
-#: includes/Base/Actions.php:47
+#: includes/Base/Actions.php:48
 msgid "Usage"
 msgstr ""
 
-#: includes/Base/Actions.php:48
+#: includes/Base/Actions.php:49
 msgid "FAQ"
 msgstr ""
 
-#: includes/Base/Actions.php:49
+#: includes/Base/Actions.php:50
 msgid "GitHub"
 msgstr ""
 
-#: includes/Base/Actions.php:50
+#: includes/Base/Actions.php:51
 msgid "Donate"
 msgstr ""
 
 #. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:46
-msgid "Your version of WordPress is below the minimum version of WordPress required by %s plugin. Please upgrade WordPress to 5.2.0 or later."
-msgstr ""
-
-#. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:57
-msgid "Your version of PHP is below the minimum version of PHP required by %s plugin. Please contact your host and request that your version be upgraded to 5.6 or later."
-msgstr ""
-
-#. translators: %s: Plugin Name
-#: includes/Base/AdminNotice.php:66
+#: includes/Base/AdminNotice.php:42
 msgid "Thanks for installing %1$s v%2$s plugin. Click <a href=\"%3$s\">here</a> to view Action Scheduler tasks."
 msgstr ""
 
-#: includes/Base/AdminNotice.php:84
+#: includes/Base/AdminNotice.php:60
 msgid "Ok, you deserve it"
 msgstr ""
 
-#: includes/Base/AdminNotice.php:85
+#: includes/Base/AdminNotice.php:61
 msgid "I already did"
 msgstr ""
 
-#: includes/Base/AdminNotice.php:86
-#: includes/Base/AdminNotice.php:106
+#: includes/Base/AdminNotice.php:62
+#: includes/Base/AdminNotice.php:82
 msgid "Nope&#44; maybe later"
 msgstr ""
 
-#: includes/Base/AdminNotice.php:104
+#: includes/Base/AdminNotice.php:80
 msgid "Donate Now"
 msgstr ""
 
-#: includes/Base/AdminNotice.php:105
+#: includes/Base/AdminNotice.php:81
 msgid "I already donated"
 msgstr ""
 
-#: includes/Core/AdminBar.php:41
+#: includes/Core/Admin.php:49
 msgid "Tasks"
 msgstr ""
 
-#: includes/Core/Settings.php:36
+#: includes/Core/Settings.php:55
+msgid "Advanced Scheduler"
+msgstr ""
+
+#: includes/Core/Settings.php:87
 msgid "Show Admin Bar"
 msgstr ""
 
-#: includes/Core/Settings.php:39
+#: includes/Core/Settings.php:88
 msgid "Enable Unique Actions"
 msgstr ""
 
-#: includes/Core/Settings.php:46
+#: includes/Core/Settings.php:89
+msgid "Disable Past-Due Checking"
+msgstr ""
+
+#: includes/Core/Settings.php:90
+msgid "Data Retention Period"
+msgstr ""
+
+#: includes/Core/Settings.php:92
+msgid "Queue Batch Size"
+msgstr ""
+
+#: includes/Core/Settings.php:93
+msgid "Concurrent Batches"
+msgstr ""
+
+#: includes/Core/Settings.php:94
+msgid "Timeout"
+msgstr ""
+
+#: includes/Core/Settings.php:95
+msgid "Time Limit"
+msgstr ""
+
+#: includes/Core/Settings.php:124
+msgid "Customize Advanced Cron Scheduler Plugin settings here."
+msgstr ""
+
+#: includes/Core/Settings.php:133
 msgid "Show Action Schedular Link in Admin Bar"
 msgstr ""
 
-#: includes/Core/Settings.php:54
+#: includes/Core/Settings.php:143
 msgid "Enabling Unique Actions will prevent actions from being duplicated"
+msgstr ""
+
+#: includes/Core/Settings.php:153
+msgid "Disable Past-Due Actions Checking"
+msgstr ""
+
+#: includes/Core/Settings.php:168
+msgid "Minutes"
+msgstr ""
+
+#: includes/Core/Settings.php:169
+msgid "Hours"
+msgstr ""
+
+#: includes/Core/Settings.php:170
+msgid "Days"
+msgstr ""
+
+#: includes/Core/Settings.php:171
+msgid "Weeks"
+msgstr ""
+
+#: includes/Core/Settings.php:172
+msgid "Months"
+msgstr ""
+
+#: includes/Core/Settings.php:173
+msgid "Years"
+msgstr ""
+
+#: includes/Core/Settings.php:199
+msgid "By default, Action Scheduler claims a batch of 25 actions. This small batch size is because the default time limit is only 30 seconds. However, if your actions are processing very quickly use this field to increase the batch size."
+msgstr ""
+
+#: includes/Core/Settings.php:210
+msgid "By default, Action Scheduler will run only one concurrent batches of actions. This is to prevent consuming a lot of available connections or processes on your webserver."
+msgstr ""
+
+#: includes/Core/Settings.php:222
+msgid "By default Action scheduler reset actions claimed for more than 5 minutes (300 seconds). Because we are increasing the batch size, we also want to increase the amount of time given to queues before reseting claimed actions."
+msgstr ""
+
+#: includes/Core/Settings.php:234
+msgid "By default, Action Scheduler will only process actions for a maximum of 30 seconds in each request. This time limit minimises the risk of a script timeout on unknown hosting environments, some of which enforce 30 second timeouts. If your host supports time limits longer than this for web requests, use this field to increase this time limit. This allows more actions to be processed in each request and reduces the lag between processing each queue, greatly speeding up the processing rate of scheduled actions."
+msgstr ""
+
+#. translators: WordPress Version
+#: migrate-wp-cron-to-action-scheduler.php:125
+msgid "You are using the outdated WordPress, please update it to version %s or higher."
+msgstr ""
+
+#. translators: PHP Version
+#: migrate-wp-cron-to-action-scheduler.php:131
+msgid "Advanced Cron Scheduler for WordPress requires PHP version %s or above. Please update PHP to run this plugin."
 msgstr ""

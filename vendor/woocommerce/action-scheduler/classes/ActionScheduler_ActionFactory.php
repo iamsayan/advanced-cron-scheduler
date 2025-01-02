@@ -246,7 +246,7 @@ class ActionScheduler_ActionFactory {
 	 * This general purpose method can be used in place of specific methods such as async(),
 	 * async_unique(), single() or single_unique(), etc.
 	 *
-	 * @internal Not intended for public use, should not be overriden by subclasses.
+	 * @internal Not intended for public use, should not be overridden by subclasses.
 	 *
 	 * @param array $options {
 	 *     Describes the action we wish to schedule.
@@ -307,6 +307,7 @@ class ActionScheduler_ActionFactory {
 				break;
 
 			default:
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				error_log( "Unknown action type '{$options['type']}' specified when trying to create an action for '{$options['hook']}'." );
 				return 0;
 		}
@@ -318,6 +319,7 @@ class ActionScheduler_ActionFactory {
 		try {
 			$action_id = $options['unique'] ? $this->store_unique_action( $action ) : $this->store( $action );
 		} catch ( Exception $e ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			error_log(
 				sprintf(
 					/* translators: %1$s is the name of the hook to be enqueued, %2$s is the exception message. */
@@ -351,7 +353,26 @@ class ActionScheduler_ActionFactory {
 	 */
 	protected function store_unique_action( ActionScheduler_Action $action ) {
 		$store = ActionScheduler_Store::instance();
-		return method_exists( $store, 'save_unique_action' ) ?
-			$store->save_unique_action( $action ) : $store->save_action( $action );
+		if ( method_exists( $store, 'save_unique_action' ) ) {
+			return $store->save_unique_action( $action );
+		} else {
+			/**
+			 * Fallback to non-unique action if the store doesn't support unique actions.
+			 * We try to save the action as unique, accepting that there might be a race condition.
+			 * This is likely still better than giving up on unique actions entirely.
+			 */
+			$existing_action_id = (int) $store->find_action(
+				$action->get_hook(),
+				array(
+					'args'   => $action->get_args(),
+					'status' => ActionScheduler_Store::STATUS_PENDING,
+					'group'  => $action->get_group(),
+				)
+			);
+			if ( $existing_action_id > 0 ) {
+				return 0;
+			}
+			return $store->save_action( $action );
+		}
 	}
 }
