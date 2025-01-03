@@ -20,7 +20,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class Admin
 {
-	use Hooker, HelperFunctions;
+	use Hooker;
+    use HelperFunctions;
 
 	/**
 	 * Register functions.

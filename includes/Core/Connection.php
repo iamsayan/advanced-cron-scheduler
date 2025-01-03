@@ -20,7 +20,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class Connection
 {
-	use HelperFunctions, Scheduler;
+	use HelperFunctions;
+    use Scheduler;
 
     /**
 	 * List of Events.
