@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Hooker class.
  */
-trait Hooker 
+trait Hooker
 {
 	/**
 	 * Hooks a function on to a specific action
