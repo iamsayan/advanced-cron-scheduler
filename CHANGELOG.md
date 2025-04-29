@@ -4,6 +4,28 @@ If you like Advanced Cron Scheduler plugin, please take a moment to [give a 5-st
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.4
+Release Date: 29th April, 2025
+
+* Fixed: Wrong Settings URL.
+* Fixed: PHPCS Issues.
+* Updated: Action Scheduler library to v3.9.2.
+* Minimum WordPress supported version is now 6.5.0.
+* Tested up to WordPress 6.8.
+
+## 1.1.3
+Release Date: 3rd January, 2025
+
+* Fixed: Issue with migration of WP Cron events.
+
+## 1.1.2
+Release Date: 2nd January, 2025
+
+* Added: Support for Customizing the Action Scheduler.
+* Updated: Action Scheduler library to v3.9.0.
+* Minimum PHP supported version is now 7.1.
+* Tested up to WordPress 6.7.
+
 ## 1.1.1
 Release Date: 1st March, 2024
 

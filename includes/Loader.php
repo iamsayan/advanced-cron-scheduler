@@ -41,6 +41,7 @@ final class Loader
 	public static function register_services() {
 		foreach ( self::get_services() as $class ) {
 			$service = self::instantiate( $class );
+			
 			if ( method_exists( $service, 'register' ) ) {
 				$service->register();
 			}
@@ -53,8 +54,8 @@ final class Loader
 	 * @param  class $class    class from the services array
 	 * @return class instance  new instance of the class
 	 */
-	private static function instantiate( $class ) {
-		$service = new $class();
+	private static function instantiate( $service_class ) {
+		$service = new $service_class();
 
 		return $service;
 	}

@@ -152,7 +152,7 @@ trait HelperFunctions
     /**
 	 * Get settings.
 	 */
-	protected function get_settings( $key, $default = null ) {
+	protected function get_settings( $key, $default_value = null ) {
 		$settings = get_option( 'acswp_settings', [] );
         if ( empty( $settings ) || ! is_array( $settings ) ) {
             $settings = [];
@@ -162,6 +162,6 @@ trait HelperFunctions
             return $settings[ $key ];
         }
 
-		return $default;
+		return $default_value;
 	}
 }

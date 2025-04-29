@@ -186,7 +186,7 @@ class Settings
 					?>
 				</select>
 			</div>
-			<small>By default, Action Scheduler deletes completed actions every 30 days. Use this field to set a default actions delete duration.</small>
+			<small><?= esc_html__( 'By default, Action Scheduler deletes completed actions every 30 days. Use this field to set a default actions delete duration.', 'migrate-wp-cron-to-action-scheduler' ); ?></small>
 		</div>
 		<?php
 	}
