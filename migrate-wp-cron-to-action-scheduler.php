@@ -211,7 +211,7 @@ final class ACSWP {
  *
  * @return ACSWP
  */
-function acswp() {
+function acswp() { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	return ACSWP::get();
 }
 

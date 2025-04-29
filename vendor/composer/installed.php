@@ -3,7 +3,7 @@
         'name' => 'iamsayan/advanced-cron-scheduler',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => 'fee03ef3a1c065dff3927f08da848d3b0b198efc',
+        'reference' => '3f4ef6796d81059d51aecd313c2e9fbf80878ace',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'iamsayan/advanced-cron-scheduler' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => 'fee03ef3a1c065dff3927f08da848d3b0b198efc',
+            'reference' => '3f4ef6796d81059d51aecd313c2e9fbf80878ace',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
