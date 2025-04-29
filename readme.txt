@@ -1,9 +1,9 @@
 === Advanced Cron Scheduler for WordPress ===
 Contributors: infosatech
 Tags: scheduler, wp cron, debug, cron manager, action scheduler
-Requires at least: 5.2
-Tested up to: 6.7
-Stable tag: 1.1.3
+Requires at least: 6.5
+Tested up to: 6.8
+Stable tag: 1.1.4
 Requires PHP: 7.1
 Donate link: https://www.paypal.me/iamsayan/
 License: GPLv3
@@ -94,6 +94,15 @@ Yes, our plugins work independently of themes you are using. As long as your web
 == Changelog ==
 
 If you like Advanced Cron Scheduler, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/migrate-wp-cron-to-action-scheduler/reviews/#new-post). It helps to keep development and support going strong. Thank you!
+
+= 1.1.4 =
+Release Date: 29th April, 2025
+
+* Fixed: Wrong Settings URL.
+* Fixed: PHPCS Issues.
+* Updated: Action Scheduler library to v3.9.2.
+* Minimum WordPress supported version is now 6.5.0.
+* Tested up to WordPress 6.8.
 
 = 1.1.3 =
 Release Date: 3rd January, 2025
